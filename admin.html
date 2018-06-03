@@ -5,6 +5,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
+            body{
+                display: flex;
+                min-height: 100vh;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
             input[type=text]{
                 width: 32%;
                 font-size: 50px;
@@ -13,12 +23,13 @@
                 display: none;
             }
             button{
-                width: 98%;
+                width: 70%;
                 background-color: rgb(7, 110, 228);
                 font-size: 50px;
                 margin: 1px;
                 color:white;
                 display: none;
+                height: 100px;
             }
         </style>
     </head>
@@ -68,10 +79,10 @@
                     user = result.user;
                     if(user){
                         document.getElementById("login").style.display = "none";
-                        document.getElementById("name").style.display = "inline-block";
-                        document.getElementById("gender").style.display = "inline-block";
-                        document.getElementById("age").style.display = "inline-block";
-                        document.getElementById("add").style.display = "inline-block";
+                        document.getElementById("name").style.display = "flex";
+                        document.getElementById("gender").style.display = "flex";
+                        document.getElementById("age").style.display = "flex";
+                        document.getElementById("add").style.display = "flex";
                     }
                 }).catch(function(error) {
                 // Handle Errors here.

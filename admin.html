@@ -34,6 +34,7 @@
             table, tr{
                 width: 70%;
             }
+            
         </style>
     </head>
     <body>  
@@ -108,5 +109,33 @@
             <th><input type="text" placeholder="age" id="age"></th>
         </tr></table>
         <button id = "add" onclick="submit()">submit</button>
+
+        <script>
+            var uploader = document.getElementById("uploader");
+            var fileButton = document.getElementById("fileButton");
+
+            fileButton.addEventListener('change', function(e)){
+                var file = e.target.file[0];
+                var storageRef = firebase.storage().ref(User.uid + '/sences/' + file.name);
+                var task = storageRef.put(file);
+
+                task.on('state_changed',
+                    function progress(snapshot){
+                        var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        uploader.value = percentage;
+                    },
+                    function error(err){
+
+                    },
+                    function complete(){
+
+                    }
+                );
+            });
+        </script>
+        <progress value="0" max="100" ip="uploader" style="-webkit-appearance: none;
+        width: 50%;
+        margin-bottom: 5px;">0%</progress>
+        <input type="file" value="upload" id="fileButton">
     </body>
 </html>

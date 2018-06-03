@@ -16,7 +16,7 @@
                 flex-direction: column;
             }
             input[type=text]{
-                width: 20%;
+                width: 100%;
                 font-size: 50px;
                 margin: 1px;
                 text-align: center;
@@ -24,12 +24,15 @@
             }
             button{
                 width: 70%;
-                height: 100px;
+                height: 80px;
                 background-color: rgb(7, 110, 228);
                 font-size: 50px;
                 margin: 1px;
                 color:white;
                 display: none;
+            }
+            table, tr{
+                width: 70%;
             }
         </style>
     </head>
@@ -99,11 +102,11 @@
         </script>
         <br>
         <button id = "login" style="display: inline-block" onclick="login()">admin login</button>
-        <div style="align-items: center">
-            <input type="text" placeholder="name" id="name">
-            <input type="text" placeholder="gender" id="gender">
-            <input type="text" placeholder="age" id="age">
-        </div>
+        <table><tr>
+            <th><input type="text" placeholder="name" id="name"></th>
+            <th><input type="text" placeholder="gender" id="gender"></th>
+            <th><input type="text" placeholder="age" id="age"></th>
+        </tr></table>
         <button id = "add" onclick="submit()">submit</button>
     </body>
 </html>

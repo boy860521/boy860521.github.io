@@ -22,6 +22,12 @@
                 text-align: center;
                 display: none;
             }
+            .picture {
+                width: 70%;
+            }
+            .picture_description{
+                width: 70%;
+            }
             button{
                 width: 70%;
                 height: 80px;
@@ -33,6 +39,11 @@
             }
             table, tr{
                 width: 70%;
+            }
+            progress{
+                -webkit-appearance: none;
+                width: 50%;
+                margin-bottom: 5px;
             }
             
         </style>
@@ -52,7 +63,7 @@
         </script>
         <script>
             var user;
-            function submit(){
+            function adduser(){
                 var name = document.getElementById("name");
                 var gender = document.getElementById("gender");
                 var age = document.getElementById("age");
@@ -108,34 +119,39 @@
             <th><input type="text" placeholder="gender" id="gender"></th>
             <th><input type="text" placeholder="age" id="age"></th>
         </tr></table>
-        <button id = "add" onclick="submit()">submit</button>
+        <button id = "add" onclick="adduser()">add user</button>
 
         <script>
-            var uploader = document.getElementById("uploader");
-            var fileButton = document.getElementById("fileButton");
+            function addsences(){
+                var uploader = document.getElementById("uploader");
+                var fileButton = document.getElementById("fileButton");
 
-            fileButton.addEventListener('change', function(e)){
-                var file = e.target.file[0];
-                var storageRef = firebase.storage().ref(User.uid + '/sences/' + file.name);
-                var task = storageRef.put(file);
+                fileButton.addEventListener('change', function(e)){
+                    var file = e.target.file[0];
+                    var storageRef = firebase.storage().ref(User.uid + '/sences/' + file.name);
+                    var task = storageRef.put(file);
 
-                task.on('state_changed',
-                    function progress(snapshot){
-                        var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        uploader.value = percentage;
-                    },
-                    function error(err){
+                    task.on('state_changed',
+                        function progress(snapshot){
+                            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            uploader.value = percentage;
+                        },
+                        function error(err){
 
-                    },
-                    function complete(){
+                        },
+                        function complete(){
 
-                    }
-                );
-            });
+                        }
+                    );
+                });
+            }
         </script>
-        <progress value="0" max="100" ip="uploader" style="-webkit-appearance: none;
-        width: 50%;
-        margin-bottom: 5px;">0%</progress>
+        
+        <input type="text" placeholder="location" id="location" style="width: 70%;">
+        <input type="text" placeholder="time to visit" id="time" style="width: 70%;">
+        <input type="text" placeholder="description" id="description" style="width: 70%; height: 200px;">
+        <progress value="0" max="100" ip="uploader" >0%</progress>
         <input type="file" value="upload" id="fileButton">
+        <button id = "sences" onclick="addsences()">add sence</button>
     </body>
 </html>

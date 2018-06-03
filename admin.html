@@ -36,13 +36,13 @@
             firebase.initializeApp(config);
         </script>
         <script>
-            var User;
+            var user;
             function submit(){
                 var name = document.getElementById("name");
                 var gender = document.getElementById("gender");
                 var age = document.getElementById("age");
 
-                if(User == null){
+                if(user == null){
                     window.alert("Please login to proceed.");
                 }
                 else if(name.value=='' || gender.value=='' || age.value==''){
@@ -65,8 +65,14 @@
                     // This gives you a Google Access Token. You can use it to access the Google API.
                     var token = result.credential.accessToken;
                     // The signed-in user info.
-                    var user = result.user;
-                    // ...
+                    user = result.user;
+                    if(user){
+                        document.getElementById("login").style.display = "none";
+                        document.getElementById("name").style.display = "inline-block";
+                        document.getElementById("gender").style.display = "inline-block";
+                        document.getElementById("age").style.display = "inline-block";
+                        document.getElementById("add").style.display = "inline-block";
+                    }
                 }).catch(function(error) {
                 // Handle Errors here.
                     var errorCode = error.code;
@@ -78,13 +84,6 @@
                     // ...
                 });
                 User = firebase.auth().currentUser;
-                if(User){
-                    document.getElementById("login").style.display = "none";
-                    document.getElementById("name").style.display = "inline-block";
-                    document.getElementById("gender").style.display = "inline-block";
-                    document.getElementById("age").style.display = "inline-block";
-                    document.getElementById("add").style.display = "inline-block";
-                }
             }
         </script>
         <br>

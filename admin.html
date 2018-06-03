@@ -79,6 +79,7 @@
                 });
                 User = firebase.auth().currentUser;
                 if(User){
+                    document.getElementById("login").style.display = "none";
                     document.getElementById("name").style.display = "inline-block";
                     document.getElementById("gender").style.display = "inline-block";
                     document.getElementById("age").style.display = "inline-block";
@@ -87,7 +88,7 @@
             }
         </script>
         <br>
-        <button style="display: inline-block" onclick="login()">admin login</button>
+        <button id = "login" style="display: inline-block" onclick="login()">admin login</button>
         <br>
         <div id="afterlogin">
             <input type="text" placeholder="name" id="name">

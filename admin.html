@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>admin login</title>
+        <title>adduser</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
+            input[type=text]{
+                width: 32%;
+                font-size: 50px;
+                margin: 1px;
+                text-align: center;
+            }
             button{
                 width: 98%;
                 background-color: rgb(7, 110, 228);
@@ -28,9 +34,31 @@
             firebase.initializeApp(config);
         </script>
         <script>
+            var User;
+            function submit(){
+                var name = document.getElementById("name");
+                var gender = document.getElementById("gender");
+                var age = document.getElementById("age");
+
+                if(User == null){
+                    window.alert("Please login to proceed.");
+                }
+                else if(name.value=='' || gender.value=='' || age.value==''){
+                    window.alert("Name, genger, and age should not be empty");
+                }
+                else{
+                    firebase.database().ref(User.uid + '/UsersData/' + name.value).set({
+                        gender: gender.value,
+                        age: age.value
+                    });
+                    name.value = '';
+                    gender.value = '';
+                    age.value = '';
+                }
+            }
             function login(){
                 var provider = new firebase.auth.GoogleAuthProvider();
-
+    
                 firebase.auth().signInWithPopup(provider).then(function(result) {
                     // This gives you a Google Access Token. You can use it to access the Google API.
                     var token = result.credential.accessToken;
@@ -47,9 +75,15 @@
                     var credential = error.credential;
                     // ...
                 });
+                User = firebase.auth().currentUser;
             }
         </script>
-        <br><br>
+        <br>
         <button onclick="login()">admin login</button>
+        <br>
+        <input type="text" placeholder="name" id="name">
+        <input type="text" placeholder="gender" id="gender">
+        <input type="text" placeholder="age" id="age">
+        <button onclick="submit()">submit</button>
     </body>
 </html>

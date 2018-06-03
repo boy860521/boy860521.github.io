@@ -16,18 +16,20 @@
                 flex-direction: column;
             }
             input[type=text]{
-                width: 32%;
+                width: 60%;
                 font-size: 50px;
                 margin: 1px;
                 text-align: center;
+                display: none;
             }
             button{
                 width: 70%;
+                height: 100px;
                 background-color: rgb(7, 110, 228);
                 font-size: 50px;
                 margin: 1px;
                 color:white;
-                height: 100px;
+                display: none;
             }
         </style>
     </head>
@@ -77,7 +79,10 @@
                     user = result.user;
                     if(user){
                         document.getElementById("login").style.display = "none";
-                        document.getElementById("afterlogin").style.display = "inline-block";
+                        document.getElementById("name").style.display = "inline-block";
+                        document.getElementById("gender").style.display = "inline-block";
+                        document.getElementById("age").style.display = "inline-block";
+                        document.getElementById("add").style.display = "inline-block";
                     }
                 }).catch(function(error) {
                 // Handle Errors here.
@@ -94,12 +99,9 @@
         </script>
         <br>
         <button id = "login" style="display: inline-block" onclick="login()">admin login</button>
-        <br>
-        <div id="afterlogin">
-            <input type="text" placeholder="name" id="name">
-            <input type="text" placeholder="gender" id="gender">
-            <input type="text" placeholder="age" id="age">
-            <button id = "add" onclick="submit()">submit</button>
-        </div>
+        <input type="text" placeholder="name" id="name">
+        <input type="text" placeholder="gender" id="gender">
+        <input type="text" placeholder="age" id="age">
+        <button id = "add" onclick="submit()">submit</button>
     </body>
 </html>

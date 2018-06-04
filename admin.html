@@ -20,7 +20,6 @@
                 font-size: 50px;
                 margin: 1px;
                 text-align: center;
-                display: none;
             }
             .picture {
                 width: 70%;
@@ -35,7 +34,7 @@
                 font-size: 50px;
                 margin: 1px;
                 color:white;
-                display: none;
+                
             }
             table, tr{
                 width: 70%;
@@ -75,7 +74,7 @@
                     window.alert("Name, genger, and age should not be empty");
                 }
                 else{
-                    firebase.database().ref(User.uid + '/UsersData/' + name.value).set({
+                    firebase.database().ref(user.uid + '/UsersData/' + name.value).set({
                         gender: gender.value,
                         age: age.value
                     });
@@ -94,14 +93,15 @@
                     user = result.user;
                     if(user){
                         document.getElementById("login").style.display = "none";
-                        document.getElementById("name").style.display = "inline-block";
+                        /*document.getElementById("name").style.display = "inline-block";
                         document.getElementById("gender").style.display = "inline-block";
                         document.getElementById("age").style.display = "inline-block";
                         document.getElementById("add").style.display = "inline-block";
                         document.getElementById("location").style.display = "inline-block";
                         document.getElementById("time").style.display = "inline-block";
                         document.getElementById("description").style.display = "inline-block";
-                        document.getElementById("sences").style.display = "inline-block";
+                        document.getElementById("sences").style.display = "inline-block";*/
+                        document.getElementById("afterlogin").style.display = "inline-block";
                     }
                 }).catch(function(error) {
                 // Handle Errors here.
@@ -113,49 +113,33 @@
                     var credential = error.credential;
                     // ...
                 });
-                User = firebase.auth().currentUser;
+                user = firebase.auth().currentUser;
+            }
+            function addpicture(){
+                var File = document.getElementById("file");
+
+                var file = File.files[0];
+                var storageRef = firebase.storage().ref(user.uid + '/abc/' + file.name);
+                var task = storageRef.put(file);
             }
         </script>
         <br>
         <button id = "login" style="display: inline-block" onclick="login()">admin login</button>
-        <table><tr>
-            <th><input type="text" placeholder="name" id="name"></th>
-            <th><input type="text" placeholder="gender" id="gender"></th>
-            <th><input type="text" placeholder="age" id="age"></th>
-        </tr></table>
-        <button id = "add" onclick="adduser()">add user</button>
-
-        <script>
-            function addsences(){
-                var uploader = document.getElementById("uploader");
-                var fileButton = document.getElementById("fileButton");
-
-                fileButton.addEventListener('change', function(e)){
-                    var file = e.target.file[0];
-                    var storageRef = firebase.storage().ref(User.uid + '/sences/' + file.name);
-                    var task = storageRef.put(file);
-
-                    task.on('state_changed',
-                        function progress(snapshot){
-                            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                            uploader.value = percentage;
-                        },
-                        function error(err){
-
-                        },
-                        function complete(){
-
-                        }
-                    );
-                });
-            }
-        </script>
+        <div id="afterlogin" style="display: none">
+            <table><tr>
+                <th><input type="text" placeholder="name" id="name"></th>
+                <th><input type="text" placeholder="gender" id="gender"></th>
+                <th><input type="text" placeholder="age" id="age"></th>
+            </tr></table>
+            <button id = "add" onclick="adduser()">add user</button>
         
-        <input type="text" placeholder="location" id="location" style="width: 70%;">
-        <input type="text" placeholder="time to visit" id="time" style="width: 70%;">
-        <input type="text" placeholder="description" id="description" style="width: 70%; height: 200px;">
-        <progress value="0" max="100" ip="uploader" >0%</progress>
-        <input type="file" value="upload" id="fileButton">
-        <button id = "sences" onclick="addsences()">add sence</button>
+            <input type="text" placeholder="location" id="location" style="width: 70%;">
+            <input type="text" placeholder="time to visit" id="time" style="width: 70%;">
+            <input type="text" placeholder="description" id="description" style="width: 70%; height: 200px;">
+            <input type="file" id="file" style="display: none;">
+            <button><label for="file">select picture</label></button>
+            <button id = "addpicture" onclick="addpicture()">add picture</button>
+        </div>
+
     </body>
 </html>

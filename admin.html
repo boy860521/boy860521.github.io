@@ -20,6 +20,7 @@
                 font-size: 50px;
                 margin: 1px;
                 text-align: center;
+                display: none;
             }
             .picture {
                 width: 70%;
@@ -93,15 +94,15 @@
                     user = result.user;
                     if(user){
                         document.getElementById("login").style.display = "none";
-                        /*document.getElementById("name").style.display = "inline-block";
+                        document.getElementById("name").style.display = "inline-block";
                         document.getElementById("gender").style.display = "inline-block";
                         document.getElementById("age").style.display = "inline-block";
                         document.getElementById("add").style.display = "inline-block";
                         document.getElementById("location").style.display = "inline-block";
                         document.getElementById("time").style.display = "inline-block";
                         document.getElementById("description").style.display = "inline-block";
-                        document.getElementById("sences").style.display = "inline-block";*/
-                        document.getElementById("afterlogin").style.display = "inline-block";
+                        document.getElementById("selectpicture").style.display = "inline-block";
+                        document.getElementById("addpicture").style.display = "inline-block";
                     }
                 }).catch(function(error) {
                 // Handle Errors here.
@@ -125,21 +126,19 @@
         </script>
         <br>
         <button id = "login" style="display: inline-block" onclick="login()">admin login</button>
-        <div id="afterlogin" style="display: none">
-            <table><tr>
-                <th><input type="text" placeholder="name" id="name"></th>
-                <th><input type="text" placeholder="gender" id="gender"></th>
-                <th><input type="text" placeholder="age" id="age"></th>
-            </tr></table>
-            <button id = "add" onclick="adduser()">add user</button>
+        <table><tr>
+            <th><input type="text" placeholder="name" id="name"></th>
+            <th><input type="text" placeholder="gender" id="gender"></th>
+            <th><input type="text" placeholder="age" id="age"></th>
+        </tr></table>
+        <button id = "add" onclick="adduser()">add user</button>
         
-            <input type="text" placeholder="location" id="location" style="width: 70%;">
-            <input type="text" placeholder="time to visit" id="time" style="width: 70%;">
-            <input type="text" placeholder="description" id="description" style="width: 70%; height: 200px;">
-            <input type="file" id="file" style="display: none;">
-            <button><label for="file">select picture</label></button>
-            <button id = "addpicture" onclick="addpicture()">add picture</button>
-        </div>
+        <input type="text" placeholder="location" id="location" style="width: 70%;">
+        <input type="text" placeholder="time to visit" id="time" style="width: 70%;">
+        <input type="text" placeholder="description" id="description" style="width: 70%; height: 200px;">
+        <input type="file" id="file" style="display: none;">
+        <button id = "selectpicture"><label for="file">select picture</label></button>
+        <button id = "addpicture" onclick="addpicture()">add picture</button>
 
     </body>
 </html>

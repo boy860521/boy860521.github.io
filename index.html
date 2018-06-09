@@ -35,6 +35,7 @@
             }).catch(function(error) {
                 // An error happened.
             });
+            sessionStorage.setItem("loggedInUser", null);
             location.replace("https://boy860521.github.io/");
         }
 
@@ -50,6 +51,11 @@
             document.getElementById("clientManagement").style.display = "inline-block";
             document.getElementById("itineraryManagement").style.display = "inline-block";
             document.getElementById("signOut").style.display = "inline-block";
+        } else {
+            document.getElementById("login").style.display = "inline-block";
+            document.getElementById("clientManagement").style.display = "none";
+            document.getElementById("itineraryManagement").style.display = "none";
+            document.getElementById("signOut").style.display = "none";
         }
 
         function login() {

@@ -77,7 +77,7 @@
             if (name.value == '') {
                 window.alert("Name should not be empty");
             } else {
-                firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + name.value).set({
+                firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + name.value).set({
                     state: "ON"
                 });
                 name.value = '';

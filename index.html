@@ -26,6 +26,10 @@
     <button id="login" style="display: inline-block" onclick="login()">admin login</button>
 
     <script>
+        if (sessionStorage.getItem("loggedInUser")) {
+            document.getElementById("login").style.display = "none";
+        }
+
         function login() {
             var provider = new firebase.auth.GoogleAuthProvider();
             var user;
@@ -45,7 +49,6 @@
                 var email = error.email;
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
-                // ...
             });
             user = firebase.auth().currentUser;
         }

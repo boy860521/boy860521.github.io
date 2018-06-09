@@ -63,6 +63,18 @@
         </script>
         <script>
             var user;
+            if(user){
+                        document.getElementById("login").style.display = "none";
+                        document.getElementById("name").style.display = "inline-block";
+                        document.getElementById("gender").style.display = "inline-block";
+                        document.getElementById("age").style.display = "inline-block";
+                        document.getElementById("add").style.display = "inline-block";
+                        document.getElementById("location").style.display = "inline-block";
+                        document.getElementById("time").style.display = "inline-block";
+                        document.getElementById("description").style.display = "inline-block";
+                        document.getElementById("selectpicture").style.display = "inline-block";
+                        document.getElementById("addpicture").style.display = "inline-block";
+                    }
             function adduser(){
                 var name = document.getElementById("name");
                 var gender = document.getElementById("gender");

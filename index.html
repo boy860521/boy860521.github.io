@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Admin</title>
+    <title>Admin Entrance</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
@@ -24,10 +24,21 @@
     </script>
 
     <button id="login" style="display: inline-block" onclick="login()">admin login</button>
+    <button id="addC" onclick="toAddC()">add client</button>
+    <button id="addS" onclick="toAddS()">add sence</button>
 
     <script>
+        function toAddC() {
+            location.replace("https://boy860521.github.io/under_construction");
+        }
+
+        function toAddS() {
+            location.replace("https://boy860521.github.io/under_construction");
+        }
         if (sessionStorage.getItem("loggedInUser")) {
             document.getElementById("login").style.display = "none";
+            document.getElementById("addC").style.display = "inline-block";
+            document.getElementById("addS").style.display = "inline-block";
         }
 
         function login() {
@@ -38,8 +49,8 @@
                 var token = result.credential.accessToken;
                 // The signed-in user info.
                 if (result.user) {
-                    sessionStorage.setItem("loggedInUser", user);
-                    window.alert("!!!");
+                    sessionStorage.setItem("loggedInUser", result.user);
+                    window.alert(user.name);
                 }
             }).catch(function(error) {
                 // Handle Errors here.
@@ -51,6 +62,15 @@
                 var credential = error.credential;
             });
             user = firebase.auth().currentUser;
+            if (user != null) {
+                user.providerData.forEach(function(profile) {
+                    console.log("Sign-in provider: " + profile.providerId);
+                    console.log("  Provider-specific UID: " + profile.uid);
+                    console.log("  Name: " + profile.displayName);
+                    console.log("  Email: " + profile.email);
+                    console.log("  Photo URL: " + profile.photoURL);
+                });
+            }
         }
     </script>
 </body>

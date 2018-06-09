@@ -39,28 +39,36 @@
                 var data1 = document.createElement("input");
                 data1.type = "text";
                 data1.value = key;
+                data1.onchange = "toChangeData()";
+                var btn1 = document.createElement("button");
+                btn1.onclick = "changeData(key, 1)";
+                btn1.style = "display: none;";
+                data1.appendChild(btn1);
                 th1.appendChild(data1);
                 tr.appendChild(th1);
                 var th2 = document.createElement("th");
                 var data2 = document.createElement("input");
                 data2.type = "text";
                 data2.value = childData.gender;
+                data2.onchange = "toChangeData()";
+                var btn2 = document.createElement("button");
+                btn2.onclick = "changeData(key, 2)";
+                btn2.style = "display: none;";
+                data2.appendChild(btn2);
                 th2.appendChild(data2);
                 tr.appendChild(th2);
                 var th3 = document.createElement("th");
                 var data3 = document.createElement("input");
                 data3.type = "text";
                 data3.value = childData.age;
+                data3.onchange = "toChangeData()";
+                var btn3 = document.createElement("button");
+                btn3.onclick = "changeData(key, 3)";
+                btn3.style = "display: none;";
+                data3.appendChild(btn3);
                 th3.appendChild(data3);
                 tr.appendChild(th3);
-                var btn = document.createElement("button");
-                btn.onclick = "change()";
-                btn.style = "display: none;";
-                btn.ID = key + 'change';
-                var label = document.createElement("label");
-                label.for = key + 'change';
-                label.appendChild(tr);
-                table.appendChild(label);
+                table.appendChild(tr);
             });
         });
         document.body.appendChild(table);
@@ -77,6 +85,16 @@
     <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
+        function toChangeData() {
+            this.style = "display: none";
+            this.child.style = "display: inline-block";
+        }
+
+        function changeData(key, which) {
+            console.log(key + ', ' + which);
+            console.log(this.parent.value);
+        }
+
         function signOut() {
             firebase.auth().signOut().then(function() {
                 // Sign-out successful.

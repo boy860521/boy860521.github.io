@@ -31,13 +31,23 @@
         </tr>
     </table>
     <button id="add" onclick="addClient()">Add Client</button>
+    <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
         var firebaseUid = sessionStorage.getItem("firebaseUid");
-        console.log(firebaseUid);
+        console.log(firebaseUid + "has logged in.");
         if (firebaseUid == null)
             location.replace("https://boy860521.github.io/");
 
+        function signOut() {
+            firebase.auth().signOut().then(function() {
+                // Sign-out successful.
+            }).catch(function(error) {
+                // An error happened.
+            });
+            sessionStorage.removeItem("firebaseUid");
+            location.replace("https://boy860521.github.io/");
+        }
 
         function addClient() {
             var name = document.getElementById("name");

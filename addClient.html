@@ -76,12 +76,12 @@
     <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
-        function toChangeData(name, which, orignalvalue) {
-            console.log(name + which);
-            var postValue = document.getElementById(name + which).value;
+        function toChangeData(key, which, orignalvalue) {
+            console.log(key + which);
+            var postValue = document.getElementById(key + which).value;
             var YesOrNo = confirm("Sure to change" + orignalvalue + " to " + postValue + "?");
             if (YesOrNo == true) {
-                firebase.database().ref(firebaseUid + '/ClientsData/' + ID).remove();
+                firebase.database().ref(firebaseUid + '/ClientsData/' + key).remove();
                 var name = document.getElementById(name + "1"),
                     gender = document.getElementById(name + "2"),
                     age = document.getElementById(name + "3");

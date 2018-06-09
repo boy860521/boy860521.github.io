@@ -50,7 +50,9 @@
                 // The signed-in user info.
                 if (result.user) {
                     sessionStorage.setItem("loggedInUser", result.user);
-                    window.alert(user.name);
+                    document.getElementById("login").style.display = "none";
+                    document.getElementById("addC").style.display = "inline-block";
+                    document.getElementById("addS").style.display = "inline-block";
                 }
             }).catch(function(error) {
                 // Handle Errors here.

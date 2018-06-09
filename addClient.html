@@ -82,9 +82,9 @@
             var YesOrNo = confirm("Sure to change" + orignalvalue + " to " + postValue + "?");
             if (YesOrNo == true) {
                 firebase.database().ref(firebaseUid + '/ClientsData/' + key).remove();
-                var name = document.getElementById(name + "1"),
-                    gender = document.getElementById(name + "2"),
-                    age = document.getElementById(name + "3");
+                var name = document.getElementById(key + "1"),
+                    gender = document.getElementById(key + "2"),
+                    age = document.getElementById(key + "3");
 
                 firebase.database().ref(firebaseUid + '/ClientsData/' + name.value).set({
                     gender: gender.value,

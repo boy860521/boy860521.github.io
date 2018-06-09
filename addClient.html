@@ -34,11 +34,14 @@
     <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
-        console.log(firebase.auth().currentUser.uid);
         var firebaseUid = sessionStorage.getItem("firebaseUid");
         console.log(firebaseUid + "has logged in.");
         if (firebaseUid == null)
             location.replace("https://boy860521.github.io/");
+
+        return firebase.database().ref(firebaseUid + '/ClientsData').once('value').then(function(snapshot) {
+            console.log(snapshot.val);
+        });
 
         function signOut() {
             firebase.auth().signOut().then(function() {
@@ -58,7 +61,7 @@
             if (name.value == '' || gender.value == '' || age.value == '') {
                 window.alert("Name, genger, and age should not be empty");
             } else {
-                firebase.database().ref(firebaseUid + '/UsersData/' + name.value).set({
+                firebase.database().ref(firebaseUid + '/ClientsData/' + name.value).set({
                     gender: gender.value,
                     age: age.value
                 });

@@ -33,8 +33,8 @@
     <button id="add" onclick="addClient()">Add Client</button>
 
     <script>
-        var user = sessionStorage.getItem("loggedInUser");
-        if (user == null) location.replace("https://boy860521.github.io/");
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        if (firebaseUid) location.replace("https://boy860521.github.io/");
 
         function addClient() {
             var name = document.getElementById("name");
@@ -44,7 +44,7 @@
             if (name.value == '' || gender.value == '' || age.value == '') {
                 window.alert("Name, genger, and age should not be empty");
             } else {
-                firebase.database().ref(user.uid + '/UsersData/' + name.value).set({
+                firebase.database().ref(firebaseUid + '/UsersData/' + name.value).set({
                     gender: gender.value,
                     age: age.value
                 });

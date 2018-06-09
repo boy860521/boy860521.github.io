@@ -40,9 +40,11 @@
                 var key = childSnapshot.key;
                 //var childData = childSnapshot.val();
                 var btn = document.createElement("button");
-                btn.innerText = key;
-                btn.setAttribute('onclick', 'toOneItineraryManagement(' + key + ')');
-                pre.appendChild(btn);
+                if (key == "state") {} else {
+                    btn.innerText = key;
+                    btn.setAttribute('onclick', 'toOneItineraryManagement(' + key + ')');
+                    pre.appendChild(btn);
+                }
             });
         });
     </script>

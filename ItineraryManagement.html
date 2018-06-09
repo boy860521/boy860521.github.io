@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Itinerary Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        console.log(firebaseUid + "has logged in.");
+        if (firebaseUid == null)
+            location.replace("https://boy860521.github.io/");
+
+        var table = document.createElement("table");
+        firebase.database().ref(firebaseUid + '/ClientsData/').once('value', function(snapshot) {
+            console.log(snapshot.val());
+            console.log(snapshot.numChildren());
+            snapshot.forEach(function(childSnapshot) {
+                var key = childSnapshot.key;
+                var childData = childSnapshot.val(); //lable for update
+                var tr = document.createElement("tr");
+                var th1 = document.createElement("th");
+                var data1 = document.createElement("input");
+                data1.type = "text";
+                data1.value = key;
+                data1.id = key + '1';
+                data1.setAttribute('onchange', 'toChangeData("' + key + '", "' + 1 + '", "' + key + '")');
+                th1.appendChild(data1);
+                tr.appendChild(th1);
+                var th2 = document.createElement("th");
+                var data2 = document.createElement("input");
+                data2.type = "text";
+                data2.value = childData.gender;
+                data2.id = key + '2';
+                data2.setAttribute('onchange', 'toChangeData("' + key + '", "' + 2 + '", "' + childData.gender + '")');
+                th2.appendChild(data2);
+                tr.appendChild(th2);
+                var th3 = document.createElement("th");
+                var data3 = document.createElement("input");
+                data3.type = "text";
+                data3.value = childData.age;
+                data3.id = key + '3';
+                data3.setAttribute('onchange', 'toChangeData("' + key + '", "' + 3 + '", "' + childData.age + '")');
+                th3.appendChild(data3);
+                tr.appendChild(th3);
+                table.appendChild(tr);
+            });
+        });
+        document.body.appendChild(table);
+    </script>
+    <table>
+        <tr>
+            <th><input type="text" placeholder="Itinerary Name" id="name"></th>
+        </tr>
+    </table>
+    <button id="add" onclick="addItinerary()">Add Itinerary</button>
+    <button id="homePage" onclick="homePage()">Home Page</button>
+    <button id="signOut" onclick="signOut()">Sign Out</button>
+
+    <script>
+        function homePage() {
+            location.replace("https://boy860521.github.io/");
+        }
+
+        function signOut() {
+            firebase.auth().signOut().then(function() {
+                // Sign-out successful.
+            }).catch(function(error) {
+                // An error happened.
+            });
+            sessionStorage.removeItem("firebaseUid");
+            location.replace("https://boy860521.github.io/");
+        }
+
+        function addItinerary() {
+            var name = document.getElementById("name");
+
+            if (name.value == '') {
+                window.alert("Name should not be empty");
+            } else {
+                firebase.database().ref(firebaseUid + '/ItinerariesData/' + name.value).set({});
+                name.value = '';
+                location.replace("https://boy860521.github.io/IntineraryManagement");
+            }
+        }
+    </script>
+</body>
+
+</html>

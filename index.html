@@ -24,10 +24,19 @@
     </script>
 
     <button id="login" style="display: inline-block" onclick="login()">Admin Login</button>
-    <button id="C" onclick="toCM()">Client Management</button>
-    <button id="I" onclick="toIM()">Itinerary Management</button>
+    <button id="clientManagement" onclick="toCM()">Client Management</button>
+    <button id="itineraryManagement" onclick="toIM()">Itinerary Management</button>
+    <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
+        function signOut() {
+            firebase.auth().signOut().then(function() {
+                // Sign-out successful.
+            }).catch(function(error) {
+                // An error happened.
+            });
+        }
+
         function toCM() {
             location.replace("https://boy860521.github.io/under_construction");
         }
@@ -37,8 +46,8 @@
         }
         if (sessionStorage.getItem("loggedInUser")) {
             document.getElementById("login").style.display = "none";
-            document.getElementById("C").style.display = "inline-block";
-            document.getElementById("I").style.display = "inline-block";
+            document.getElementById("clientManagement").style.display = "inline-block";
+            document.getElementById("itineraryManagement").style.display = "inline-block";
         }
 
         function login() {
@@ -51,8 +60,8 @@
                 if (result.user) {
                     sessionStorage.setItem("loggedInUser", result.user);
                     document.getElementById("login").style.display = "none";
-                    document.getElementById("C").style.display = "inline-block";
-                    document.getElementById("I").style.display = "inline-block";
+                    document.getElementById("clientManagement").style.display = "inline-block";
+                    document.getElementById("itineraryManagement").style.display = "inline-block";
                 }
             }).catch(function(error) {
                 // Handle Errors here.

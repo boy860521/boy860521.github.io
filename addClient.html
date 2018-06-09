@@ -40,7 +40,7 @@
             location.replace("https://boy860521.github.io/");
 
         firebase.database().ref(firebaseUid + '/ClientsData/').once('value', function(snapshot) {
-            console.log(snapshot.val);
+            console.log(snapshot.val.());
         });
 
 

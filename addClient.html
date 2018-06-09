@@ -76,18 +76,22 @@
     <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
-        function toChangeData(ID, which, orignalvalue) {
-            console.log(ID + which);
-            var data = document.getElementById(ID + which);
-            var postvalue = data.value;
-            var YesOrNo = confirm("Sure to change" + orignalvalue + " to " + postvalue + "?");
-            var firebaseRef;
+        function toChangeData(name, which, orignalvalue) {
+            console.log(name + which);
+            var postValue = document.getElementById(name + which).value;
+            var YesOrNo = confirm("Sure to change" + orignalvalue + " to " + postValue + "?");
             if (YesOrNo == true) {
-                if (which == "1") firebase.database().ref(firebaseUid + '/ClientsData/' + ID).update(postvalue);
-                else if (which == "2") firebase.database().ref(firebaseUid + '/ClientsData/' + ID + '/gender').update(postvalue);
-                else if (which == "3") firebase.database().ref(firebaseUid + '/ClientsData/' + ID + '/age').update(postvalue);
+                firebase.database().ref(firebaseUid + '/ClientsData/' + ID).remove();
+                var name = document.getElementById(name + "1"),
+                    gender = document.getElementById(name + "2"),
+                    age = document.getElementById(name + "3");
+
+                firebase.database().ref(firebaseUid + '/ClientsData/' + name.value).set({
+                    gender: gender.value,
+                    age: age.value
+                });
             } else {
-                data.value = orignalvalue;
+                document.getElementById(name + which).value = orignalvalue;
             }
         }
 

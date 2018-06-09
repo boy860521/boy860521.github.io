@@ -39,15 +39,34 @@
         if (firebaseUid == null)
             location.replace("https://boy860521.github.io/");
 
+        var table = document.createElement("table");
         firebase.database().ref(firebaseUid + '/ClientsData/').once('value', function(snapshot) {
             console.log(snapshot.val());
             console.log(snapshot.numChildren());
             snapshot.forEach(function(childSnapshot) {
-                // key will be "ada" the first time and "alan" the second time
                 var key = childSnapshot.key;
-                console.log(key);
-                // childData will be the actual contents of the child
-                //var childData = childSnapshot.val();
+                var childData = childSnapshot.val(); //lable for update
+                var tr = document.createElement("tr");
+                var th1 = document.createElement("th");
+                var data1 = document.createElement("input");
+                data1.type = "text";
+                data1.value = key;
+                th1.appendChild(data1);
+                tr.appendChild(th1);
+                var th2 = document.createElement("th");
+                var data2 = document.createElement("input");
+                data2.type = "text";
+                data2.value = childData.gender;
+                th2.appendChild(data2);
+                tr.appendChild(th2);
+                var th3 = document.createElement("th");
+                var data3 = document.createElement("input");
+                data3.type = "text";
+                data3.value = childData.key;
+                th3.appendChild(data3);
+                tr.appendChild(th3);
+                tr.ID = key + 'change';
+                table.appendChild(tr);
             });
         });
 

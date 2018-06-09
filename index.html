@@ -51,11 +51,13 @@
             document.getElementById("clientManagement").style.display = "inline-block";
             document.getElementById("itineraryManagement").style.display = "inline-block";
             document.getElementById("signOut").style.display = "inline-block";
+            window.alert("logged!");
         } else {
             document.getElementById("login").style.display = "inline-block";
             document.getElementById("clientManagement").style.display = "none";
             document.getElementById("itineraryManagement").style.display = "none";
             document.getElementById("signOut").style.display = "none";
+            window.alert("NO!");
         }
 
         function login() {

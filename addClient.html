@@ -41,6 +41,7 @@
 
         firebase.database().ref(firebaseUid + '/ClientsData/').once('value', function(snapshot) {
             console.log(snapshot.val());
+            console.log(snapshot.val().length);
         });
 
 

@@ -42,8 +42,13 @@
         firebase.database().ref(firebaseUid + '/ClientsData/').once('value', function(snapshot) {
             console.log(snapshot.val());
             console.log(snapshot.numChildren());
-            console.log(snapshot.val().DVA.age);
-            console.log((snapshot.val())[0].age);
+            snapshot.forEach(function(childSnapshot) {
+                // key will be "ada" the first time and "alan" the second time
+                var key = childSnapshot.key;
+                console.log(key);
+                // childData will be the actual contents of the child
+                //var childData = childSnapshot.val();
+            });
         });
 
 

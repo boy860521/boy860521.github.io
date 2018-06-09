@@ -70,7 +70,9 @@
             if (name.value == '') {
                 window.alert("Name should not be empty");
             } else {
-                firebase.database().ref(firebaseUid + '/ItinerariesData/' + name.value).set({});
+                firebase.database().ref(firebaseUid + '/ItinerariesData/' + name.value).set({
+                    state: "ON"
+                });
                 name.value = '';
                 location.replace("https://boy860521.github.io/ItineraryManagement");
             }

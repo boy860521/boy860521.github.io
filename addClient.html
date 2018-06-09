@@ -79,7 +79,7 @@
         function toChangeData(key, which, orignalvalue) {
             console.log(key + which);
             var postValue = document.getElementById(key + which).value;
-            var YesOrNo = confirm("Sure to change" + orignalvalue + " to " + postValue + "?");
+            var YesOrNo = confirm("Sure to change " + orignalvalue + " to " + postValue + "?");
             if (YesOrNo == true) {
                 firebase.database().ref(firebaseUid + '/ClientsData/' + key).remove();
                 var name = document.getElementById(key + "1"),

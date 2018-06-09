@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <table>
+        <tr>
+            <th><input type="text" placeholder="name" id="name"></th>
+            <th><input type="text" placeholder="gender" id="gender"></th>
+            <th><input type="text" placeholder="age" id="age"></th>
+        </tr>
+    </table>
+    <button id="add" onclick="addClient()">Add Client</button>
+
+    <script>
+        var user = sessionStorage.getItem("loggedInUser");
+        if (user == NULL) location.replace("https://boy860521.github.io/");
+
+        function addClient() {
+            var name = document.getElementById("name");
+            var gender = document.getElementById("gender");
+            var age = document.getElementById("age");
+
+            if (name.value == '' || gender.value == '' || age.value == '') {
+                window.alert("Name, genger, and age should not be empty");
+            } else {
+                firebase.database().ref(user.uid + '/UsersData/' + name.value).set({
+                    gender: gender.value,
+                    age: age.value
+                });
+                name.value = '';
+                gender.value = '';
+                age.value = '';
+            }
+        }
+    </script>
+</body>
+
+</html>

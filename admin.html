@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,7 +63,7 @@ session_start();
         </script>
         <script>
             var user;
-            if($_SESSION["user"]){
+            if(sessionStorage.getItem("loggedInUser");){
                         document.getElementById("login").style.display = "none";
                         document.getElementById("name").style.display = "inline-block";
                         document.getElementById("gender").style.display = "inline-block";
@@ -119,7 +116,7 @@ session_start();
                         document.getElementById("description").style.display = "inline-block";
                         document.getElementById("selectpicture").style.display = "inline-block";
                         document.getElementById("addpicture").style.display = "inline-block";
-                        $_SESSION["user"] = user;
+                        sessionStorage.setItem("loggedInUser", user);
                     }
                 }).catch(function(error) {
                 // Handle Errors here.

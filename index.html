@@ -23,22 +23,22 @@
         firebase.initializeApp(config);
     </script>
 
-    <button id="login" style="display: inline-block" onclick="login()">admin login</button>
-    <button id="addC" onclick="toAddC()">add client</button>
-    <button id="addS" onclick="toAddS()">add sence</button>
+    <button id="login" style="display: inline-block" onclick="login()">Admin Login</button>
+    <button id="C" onclick="toCM()">Client Management</button>
+    <button id="I" onclick="toIM()">Itinerary Management</button>
 
     <script>
-        function toAddC() {
+        function toCM() {
             location.replace("https://boy860521.github.io/under_construction");
         }
 
-        function toAddS() {
+        function toIM() {
             location.replace("https://boy860521.github.io/under_construction");
         }
         if (sessionStorage.getItem("loggedInUser")) {
             document.getElementById("login").style.display = "none";
-            document.getElementById("addC").style.display = "inline-block";
-            document.getElementById("addS").style.display = "inline-block";
+            document.getElementById("C").style.display = "inline-block";
+            document.getElementById("I").style.display = "inline-block";
         }
 
         function login() {
@@ -51,8 +51,8 @@
                 if (result.user) {
                     sessionStorage.setItem("loggedInUser", result.user);
                     document.getElementById("login").style.display = "none";
-                    document.getElementById("addC").style.display = "inline-block";
-                    document.getElementById("addS").style.display = "inline-block";
+                    document.getElementById("C").style.display = "inline-block";
+                    document.getElementById("I").style.display = "inline-block";
                 }
             }).catch(function(error) {
                 // Handle Errors here.

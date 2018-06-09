@@ -65,11 +65,17 @@
                 data3.value = childData.key;
                 th3.appendChild(data3);
                 tr.appendChild(th3);
-                tr.ID = key + 'change';
-                table.appendChild(tr);
+                var btn = document.createElement("button");
+                btn.onclick = "change()";
+                btn.style = "display: none;";
+                btn.ID = key + 'change';
+                var label = document.createElement("label");
+                label.for = key + 'change';
+                label.appendChild(tr);
+                table.appendChild(label);
             });
         });
-
+        document.body.appendChild(table);
 
         function signOut() {
             firebase.auth().signOut().then(function() {

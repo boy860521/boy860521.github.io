@@ -26,7 +26,7 @@
         console.log(firebaseUid + "has logged in.");
         if (firebaseUid == null)
             location.replace("https://boy860521.github.io/");
-
+        var pre = document.getElementById("pre");
         firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function(snapshot) {
             console.log(snapshot.val());
             console.log(snapshot.numChildren());
@@ -36,10 +36,11 @@
                 var btn = document.createElement("button");
                 btn.innerText = key;
                 btn.setAttribute('onclick', 'toOneItineraryManagement(' + key + ')');
-                document.body.appendChild(btn);
+                pre.appendChild(btn);
             });
         });
     </script>
+    <div id="pre"></div>
     <table>
         <tr>
             <th><input type="text" placeholder="Itinerary Name" id="name"></th>

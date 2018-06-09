@@ -56,6 +56,11 @@
     <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
+        function toOneItineraryManagement(which) {
+            sessionStorage.setItem("itineraryManagement", which);
+            location.replace("https://boy860521.github.io/OneItineraryManagement");
+        }
+
         function homePage() {
             location.replace("https://boy860521.github.io/");
         }

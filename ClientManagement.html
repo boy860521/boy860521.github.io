@@ -73,6 +73,7 @@
         </tr>
     </table>
     <button id="add" onclick="addClient()">Add Client</button>
+    <button id="homePage" onclick="homePage()">Home Page</button>
     <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
@@ -95,6 +96,9 @@
             }
         }
 
+        function homePage() {
+            location.replace("https://boy860521.github.io/");
+        }
 
         function signOut() {
             firebase.auth().signOut().then(function() {

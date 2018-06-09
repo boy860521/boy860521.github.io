@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <div id="pre" style="width: 100%; display: inline-block;"></div>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -37,7 +36,7 @@
                 var btn = document.createElement("button");
                 btn.innerText = key;
                 btn.setAttribute('onclick', 'toOneItineraryManagement(' + key + ')');
-                pre.appendChild(btn);
+                document.body.appendChild(btn);
             });
         });
     </script>

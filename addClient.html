@@ -39,36 +39,24 @@
                 var data1 = document.createElement("input");
                 data1.type = "text";
                 data1.value = key;
-                data1.id = key;
-                data1.setAttribute('onchange', 'toChangeData("' + key + '")');
-                var btn1 = document.createElement("button");
-                btn1.setAttribute('onclick', 'changeData("' + key + '", 1)');
-                btn1.style = "display: none;";
-                data1.appendChild(btn1);
+                data1.id = key + '1';
+                data1.setAttribute('onchange', 'toChangeData("' + key + '"+' + 1 + ', ' + key + ')');
                 th1.appendChild(data1);
                 tr.appendChild(th1);
                 var th2 = document.createElement("th");
                 var data2 = document.createElement("input");
                 data2.type = "text";
                 data2.value = childData.gender;
-                data2.id = key + childData.gender;
-                data2.setAttribute('onchange', 'toChangeData("' + key + childData.gender + '");');
-                var btn2 = document.createElement("button");
-                btn2.setAttribute('onclick', 'changeData("' + key + '", 2)');
-                btn2.style = "display: none;";
-                data2.appendChild(btn2);
+                data2.id = key + '2';
+                data2.setAttribute('onchange', 'toChangeData("' + key + '"+' + 2 + ',)');
                 th2.appendChild(data2);
                 tr.appendChild(th2);
                 var th3 = document.createElement("th");
                 var data3 = document.createElement("input");
                 data3.type = "text";
                 data3.value = childData.age;
-                data3.id = key + childData.age;
-                data3.setAttribute('onchange', 'toChangeData("' + key + childData.age + '");');
-                var btn3 = document.createElement("button");
-                btn3.setAttribute('onclick', 'changeData("' + key + '", 3)');
-                btn3.style = "display: none;";
-                data3.appendChild(btn3);
+                data3.id = key + '3';
+                data3.setAttribute('onchange', 'toChangeData("' + key + '"+' + 3 + ',)');
                 th3.appendChild(data3);
                 tr.appendChild(th3);
                 table.appendChild(tr);
@@ -88,17 +76,18 @@
     <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
-        function toChangeData(ID) {
+        function toChangeData(ID, orignalvalue) {
             console.log(ID);
-            var owner = document.getElementById(ID);
-            owner.style.display = "none";
-            owner.children[0].style.display = "inline-block";
+            var data = document.getElementById(ID);
+            var postvalue = data.value;
+            var YesOrNo = confirm("Sure to change" + orignalvalue + " to " + postvalue + "?");
+            if (YesOrNo == true) {
+
+            } else {
+                data.value = orignalvalue;
+            }
         }
 
-        function changeData(key, which) {
-            console.log(key + ', ' + which);
-            console.log(this.parent.value);
-        }
 
         function signOut() {
             firebase.auth().signOut().then(function() {

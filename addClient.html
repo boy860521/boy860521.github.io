@@ -21,19 +21,7 @@
             messagingSenderId: "139238440125"
         };
         firebase.initializeApp(config);
-    </script>
 
-    <table>
-        <tr>
-            <th><input type="text" placeholder="name" id="name"></th>
-            <th><input type="text" placeholder="gender" id="gender"></th>
-            <th><input type="text" placeholder="age" id="age"></th>
-        </tr>
-    </table>
-    <button id="add" onclick="addClient()">Add Client</button>
-    <button id="signOut" onclick="signOut()">Sign Out</button>
-
-    <script>
         var firebaseUid = sessionStorage.getItem("firebaseUid");
         console.log(firebaseUid + "has logged in.");
         if (firebaseUid == null)
@@ -62,7 +50,7 @@
                 var th3 = document.createElement("th");
                 var data3 = document.createElement("input");
                 data3.type = "text";
-                data3.value = childData.key;
+                data3.value = childData.age;
                 th3.appendChild(data3);
                 tr.appendChild(th3);
                 var btn = document.createElement("button");
@@ -76,7 +64,19 @@
             });
         });
         document.body.appendChild(table);
+    </script>
 
+    <table>
+        <tr>
+            <th><input type="text" placeholder="name" id="name"></th>
+            <th><input type="text" placeholder="gender" id="gender"></th>
+            <th><input type="text" placeholder="age" id="age"></th>
+        </tr>
+    </table>
+    <button id="add" onclick="addClient()">Add Client</button>
+    <button id="signOut" onclick="signOut()">Sign Out</button>
+
+    <script>
         function signOut() {
             firebase.auth().signOut().then(function() {
                 // Sign-out successful.

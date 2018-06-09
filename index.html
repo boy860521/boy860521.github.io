@@ -36,7 +36,7 @@
                 // An error happened.
             });
             console.log("out");
-            sessionStorage.setItem("firebaseUid", null);
+            sessionStorage.setItem("firebaseUid", '');
             location.replace("https://boy860521.github.io/");
         }
 
@@ -47,7 +47,8 @@
         function toIM() {
             location.replace("https://boy860521.github.io/under_construction");
         }
-        if (sessionStorage.getItem("firebaseUid") != null) {
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        if (firebaseUid != '' || firebase != null) {
             document.getElementById("login").style.display = "none";
             document.getElementById("clientManagement").style.display = "inline-block";
             document.getElementById("itineraryManagement").style.display = "inline-block";

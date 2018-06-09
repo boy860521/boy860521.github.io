@@ -42,7 +42,7 @@
                 var btn = document.createElement("button");
                 if (key == "state") {} else {
                     btn.innerText = key;
-                    btn.setAttribute('onclick', 'toOneItineraryManagement(' + key + ')');
+                    btn.setAttribute('onclick', 'toSenceDataManagement("' + key + '")');
                     pre.appendChild(btn);
                 }
             });
@@ -59,6 +59,11 @@
     <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
+        function toSenceDataManagement(which) {
+            sessionStorage.setItem("senceName", which);
+            location.replace("https://boy860521.github.io/SenceDataManagement");
+        }
+
         function homePage() {
             location.replace("https://boy860521.github.io/");
         }

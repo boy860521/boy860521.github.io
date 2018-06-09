@@ -40,7 +40,7 @@
                 //var childData = childSnapshot.val();
                 var btn = document.createElement("button");
                 btn.innerText = key;
-                btn.setAttribute('onclick', 'toOneItineraryManagement("' + key + '")');
+                btn.setAttribute('onclick', 'toSceneManagement("' + key + '")');
                 pre.appendChild(btn);
             });
         });
@@ -56,9 +56,9 @@
     <button id="signOut" onclick="signOut()">Sign Out</button>
 
     <script>
-        function toOneItineraryManagement(which) {
+        function toSceneManagement(which) {
             sessionStorage.setItem("itineraryName", which);
-            location.replace("https://boy860521.github.io/OneItineraryManagement");
+            location.replace("https://boy860521.github.io/SceneManagement");
         }
 
         function homePage() {

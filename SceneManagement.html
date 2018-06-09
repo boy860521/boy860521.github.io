@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Itinerary Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <table style="width: 100%;">
+        <tr>
+            <th id="pre"></th>
+        </tr>
+    </table>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        var itineraryName = sessionStorage.getItem("itineraryName");
+        console.log(firebaseUid + "has logged in.");
+        if (firebaseUid == null || itineraryName == null)
+            location.replace("https://boy860521.github.io/");
+        var pre = document.getElementById("pre");
+        firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function(snapshot) {
+            console.log(snapshot.val());
+            console.log(snapshot.numChildren());
+            snapshot.forEach(function(childSnapshot) {
+                var key = childSnapshot.key;
+                //var childData = childSnapshot.val();
+                var btn = document.createElement("button");
+                btn.innerText = key;
+                btn.setAttribute('onclick', 'toOneItineraryManagement(' + key + ')');
+                pre.appendChild(btn);
+            });
+        });
+    </script>
+
+    <table>
+        <tr>
+            <th><input type="text" placeholder="Sence Name" id="name"></th>
+        </tr>
+    </table>
+    <button id="add" onclick="addSence()">Add Sence</button>
+    <button id="homePage" onclick="homePage()">Home Page</button>
+    <button id="signOut" onclick="signOut()">Sign Out</button>
+
+    <script>
+        function homePage() {
+            location.replace("https://boy860521.github.io/");
+        }
+
+        function signOut() {
+            firebase.auth().signOut().then(function() {
+                // Sign-out successful.
+            }).catch(function(error) {
+                // An error happened.
+            });
+            sessionStorage.removeItem("firebaseUid");
+            location.replace("https://boy860521.github.io/");
+        }
+
+        function addSence() {
+            var name = document.getElementById("name");
+
+            if (name.value == '') {
+                window.alert("Name should not be empty");
+            } else {
+                firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + name.value).set({
+                    state: "ON"
+                });
+                name.value = '';
+                location.replace("https://boy860521.github.io/SceneManagement");
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -14,7 +14,6 @@ input[type=text] {
     font-size: 50px;
     margin: 1px;
     text-align: center;
-    display: none;
 }
 
 .picture {
@@ -32,7 +31,6 @@ button {
     font-size: 50px;
     margin: 1px;
     color: white;
-    display: none;
 }
 
 table,

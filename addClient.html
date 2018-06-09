@@ -34,7 +34,9 @@
 
     <script>
         var firebaseUid = sessionStorage.getItem("firebaseUid");
-        if (!firebaseUid) location.replace("https://boy860521.github.io/");
+        if (firebaseUid == null)
+            location.replace("https://boy860521.github.io/");
+
 
         function addClient() {
             var name = document.getElementById("name");

@@ -40,7 +40,7 @@
                 data1.type = "text";
                 data1.value = key;
                 data1.id = key;
-                data1.setAttribute('onchange', 'toChangeData(' + key + ');');
+                data1.setAttribute('onchange', 'toChangeData(/"' + key + '/")');
                 var btn1 = document.createElement("button");
                 btn1.onclick = "changeData(key, 1)";
                 btn1.style = "display: none;";
@@ -64,7 +64,7 @@
                 data3.type = "text";
                 data3.value = childData.age;
                 data3.id = key + childData.age;
-                data3.setAttribute('onchange', 'toChangeData(key);');
+                data3.setAttribute('onchange', 'toChangeData(' + key + childData.age + ');');
                 var btn3 = document.createElement("button");
                 btn3.onclick = "changeData(key, 3)";
                 btn3.style = "display: none;";

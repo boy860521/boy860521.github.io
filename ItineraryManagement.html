@@ -40,7 +40,7 @@
                 //var childData = childSnapshot.val();
                 var btn = document.createElement("button");
                 btn.innerText = key;
-                btn.setAttribute('onclick', 'toOneItineraryManagement(' + key + ')');
+                btn.setAttribute('onclick', 'toOneItineraryManagement("' + key + '")');
                 pre.appendChild(btn);
             });
         });

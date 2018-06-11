@@ -50,9 +50,10 @@
                 });
             });*/
         </script>
+        <img src="gs://smallmonster-fdf5b.appspot.com/YNcQffCIsJPydrvfi4tsUBepLOn2/abc/pug.jpg" alt="pug" height="500" width="500">
         <input type="file" id="file" style="display: none;">
-        <button id="selectPicture"><label for="file">Select A Picture</label></button>
-        <button id="addPicture" onclick="addPicture()">add picture</button>
+        <button id="selectPicture"><label for="file">Select</label></button>
+        <button id="addPicture" onclick="addPicture()">Add</button>
         <script>
             function addPicture(){
                 var File = document.getElementById("file");
@@ -68,10 +69,11 @@
                         state.innerHTML = "something is wrong";
                     },
                     function complete(){
-                        window.alert("Picture is uploaded.")
-                        state.innerHTML = "Select A Picture";
+                        window.alert("File is uploaded.");
+                        state.innerHTML = "Select";
                     }
                 );
+                console.log(storageRef.getDownloadURL());
             }
         </script>
     </body>

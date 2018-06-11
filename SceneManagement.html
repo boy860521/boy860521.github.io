@@ -70,7 +70,7 @@
             var YesOrNo = confirm("Sure to delete " + key + "?");
             if (YesOrNo == true) {
                 firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + key).remove();
-                location.replace("https://boy860521.github.io/ClientManagement");
+                location.replace("https://boy860521.github.io/SceneManagement");
             } 
         }
         function toSceneDataManagement(which) {

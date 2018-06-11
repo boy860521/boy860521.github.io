@@ -79,7 +79,7 @@
                     },
                     function complete(){
                         firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({
-                            path: firebaseUid + '/sceneDataImage/' + file.name,
+                            path: firebaseUid + '/sceneDataImage/' + sceneName + '/' + file.name,
                             time: time.value
                         });
                         window.alert("File is uploaded.");

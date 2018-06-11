@@ -33,6 +33,7 @@
             var Ref = firebase.storage().ref(firebaseUid + '/abc/pug.jpg');
             Ref.getDownloadURL().then(function(url){
                 console.log(url);
+                document.getElementById("sceneImage").src = url;
             });
             var pre = document.getElementById("pre");
             /*firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function(snapshot) {
@@ -54,9 +55,7 @@
                 });
             });*/
         </script>
-        <img
-            src="gs://smallmonster-fdf5b.appspot.com/YNcQffCIsJPydrvfi4tsUBepLOn2/abc/pug.jpg"
-            alt="pug" height="500" width="500">
+        <img id = "sceneImage" alt="pug">
         <input type="file" id="file" style="display: none;">
         <button id="selectPicture"><label for="file">Select</label></button>
         <button id="addPicture" onclick="addPicture()">Add</button>
@@ -65,7 +64,7 @@
                 var File = document.getElementById("file");
                 var state = document.getElementById("selectPicture");
                 var file = File.files[0];
-                var storageRef = firebase.storage().ref(firebaseUid + '/abc/' + file.name);
+                var storageRef = firebase.storage().ref(firebaseUid + '/sceneDataImage/' + file.name);
                 var task = storageRef.put(file);
                 task.on('state_changed',
                     function progress(snapshot){

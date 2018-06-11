@@ -40,7 +40,8 @@ button {
     background-color: 	#ccc;
     position: absolute;
     left:100.1%;
-    height: 65px;
+    height: 61px;
+    top: 0;
     width: 5%;
 }
 

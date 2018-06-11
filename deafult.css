@@ -59,3 +59,7 @@ img {
     max-width: 70%;
     height: auto;
 }
+label{
+    width: 70%;
+    height: 80px;
+}

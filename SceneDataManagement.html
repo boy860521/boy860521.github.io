@@ -31,7 +31,7 @@
             if (firebaseUid == null)
                 location.replace("https://boy860521.github.io/");
             var pre = document.getElementById("pre");
-            firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function(snapshot) {
+            /*firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function(snapshot) {
                 console.log(snapshot.val());
                 console.log(snapshot.numChildren());
                 snapshot.forEach(function(childSnapshot) {
@@ -48,7 +48,7 @@
                     btn.appendChild(deleteButton);
                     pre.appendChild(btn);
                 });
-            });
+            });*/
         </script>
         <input type="file" id="file" style="display: none;">
         <button id="selectPicture"><label for="file">select picture</label></button>

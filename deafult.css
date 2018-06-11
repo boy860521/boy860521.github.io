@@ -33,16 +33,8 @@ button {
     color: white;
     position: relative;
 }
-.smaller{
-    height: 65px;
-}
 .delete{
     background-color: 	#ccc;
-    position: absolute;
-    left:100.1%;
-    height: 61px;
-    top: 0;
-    width: 5%;
 }
 
 table,tr {

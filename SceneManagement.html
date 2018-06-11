@@ -36,19 +36,21 @@
             snapshot.forEach(function(childSnapshot) {
                 var key = childSnapshot.key; 
                 
-                var th = document.createElement("th");
+                var th1 = document.createElement("th");
+                var th2 = document.createElement("th");
                 var tr = document.createElement("tr");
                 var btn = document.createElement("button");
-                btn.setAttribute('class', 'smaller');
                 btn.innerText = key;
                 btn.setAttribute('onclick', 'toSceneDataManagement("' + key + '")');
+                btn.setAttribute('colspan', '7');
                 var deleteButton = document.createElement("button");
                 deleteButton.setAttribute('class', 'delete');
                 deleteButton.innerHTML = "X";
                 deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
-                btn.appendChild(deleteButton);
-                th.appendChild(btn);
-                tr.appendChild(th);
+                th2.appendChild(deleteButton);
+                th1.appendChild(btn);
+                tr.appendChild(th1);
+                tr.appendChild(th2);
                 pre.appendChild(tr);
                 if(key == "state") btn.style = "display: none";
             });

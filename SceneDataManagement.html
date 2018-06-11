@@ -30,6 +30,10 @@
             console.log(firebaseUid + "has logged in.");
             if (firebaseUid == null)
                 location.replace("https://boy860521.github.io/");
+            var Ref = firebase.storage().ref(firebaseUid + '/abc/pug.jpg');
+            Ref.getDownloadURL().then(function(url){
+                console.log(url);
+            });
             var pre = document.getElementById("pre");
             /*firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function(snapshot) {
                 console.log(snapshot.val());
@@ -50,7 +54,9 @@
                 });
             });*/
         </script>
-        <img src="gs://smallmonster-fdf5b.appspot.com/YNcQffCIsJPydrvfi4tsUBepLOn2/abc/pug.jpg" alt="pug" height="500" width="500">
+        <img
+            src="gs://smallmonster-fdf5b.appspot.com/YNcQffCIsJPydrvfi4tsUBepLOn2/abc/pug.jpg"
+            alt="pug" height="500" width="500">
         <input type="file" id="file" style="display: none;">
         <button id="selectPicture"><label for="file">Select</label></button>
         <button id="addPicture" onclick="addPicture()">Add</button>
@@ -73,10 +79,8 @@
                         state.innerHTML = "Select";
                     }
                 );
-                storageRef.getDownloadURL().then(function(url){
-                    console.log(url);
-                });
+                
             }
         </script>
     </body>
-</html>
+</html>>>>

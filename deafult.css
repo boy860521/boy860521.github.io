@@ -33,6 +33,9 @@ button {
     color: white;
     position: relative;
 }
+.smaller{
+    height: 65px;
+}
 .delete{
     background-color: 	#ccc;
     position: absolute;
@@ -44,5 +47,4 @@ button {
 table,th,tr {
     position: relative;
     width: 70%;
-    height: 65px;
 }

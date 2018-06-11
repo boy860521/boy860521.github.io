@@ -40,6 +40,7 @@
                 var key = childSnapshot.key;
                 //var childData = childSnapshot.val();
                 var btn = document.createElement("button");
+                btn.setAttribute('class', 'smaller');
                 btn.innerText = key;
                 btn.setAttribute('onclick', 'toSceneManagement("' + key + '")');
                 var deleteButton = document.createElement("button");

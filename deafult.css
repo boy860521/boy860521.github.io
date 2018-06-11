@@ -41,5 +41,6 @@ button {
 
 table,
 tr {
+    position: relative;
     width: 70%;
 }

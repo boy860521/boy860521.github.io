@@ -63,7 +63,6 @@
                 var deleteButton = document.createElement("button");
                 deleteButton.setAttribute('class', 'delete');
                 deleteButton.innerHTML = "X";
-                deleteButton.id = key;
                 deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
                 tr.appendChild(deleteButton);
                 table.appendChild(tr);

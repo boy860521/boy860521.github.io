@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Admin Entrance</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="entrance.css" rel="stylesheet" type="text/css" media="screen">
-</head>
+    <head>
+        <title>Admin Entrance</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="entrance.css" rel="stylesheet" type="text/css"
+            media="screen">
+    </head>
 
-<body>
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-    <script>
+    <body>
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+        <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
@@ -21,14 +22,15 @@
             messagingSenderId: "139238440125"
         };
         firebase.initializeApp(config);
-    </script>
+        </script>
 
-    <button id="login" style="display: inline-block" onclick="login()">Admin Login</button>
-    <button id="clientManagement" onclick="toCM()">Client Management</button>
-    <button id="itineraryManagement" onclick="toIM()">Itinerary Management</button>
-    <button id="signOut" onclick="signOut()">Sign Out</button>
+        <button id="login" style="display: inline-block" onclick="login()">Admin
+            Login</button>
+        <button id="clientManagement" onclick="toCM()">Client Management</button>
+        <button id="itineraryManagement" onclick="toIM()">Itinerary Management</button>
+        <button id="signOut" onclick="signOut()">Sign Out</button>
 
-    <script>
+        <script>
         function signOut() {
             firebase.auth().signOut().then(function() {
                 // Sign-out successful.
@@ -93,7 +95,7 @@
                 });
             }
         }
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

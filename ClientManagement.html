@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Client Management</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
-</head>
+    <head>
+        <title>Client Management</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="deafult.css" rel="stylesheet" type="text/css"
+            media="screen">
+    </head>
 
-<body>
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-    <script>
+    <body>
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+        <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
@@ -68,20 +69,20 @@
             });
         });
         document.body.appendChild(table);
-    </script>
+        </script>
 
-    <table>
-        <tr>
-            <th><input type="text" placeholder="name" id="name"></th>
-            <th><input type="text" placeholder="gender" id="gender"></th>
-            <th><input type="text" placeholder="age" id="age"></th>
-        </tr>
-    </table>
-    <button id="add" onclick="addClient()">Add Client</button>
-    <button id="homePage" onclick="homePage()">Home Page</button>
-    <button id="signOut" onclick="signOut()">Sign Out</button>
+        <table>
+            <tr>
+                <th><input type="text" placeholder="name" id="name"></th>
+                <th><input type="text" placeholder="gender" id="gender"></th>
+                <th><input type="text" placeholder="age" id="age"></th>
+            </tr>
+        </table>
+        <button id="add" onclick="addClient()">Add Client</button>
+        <button id="homePage" onclick="homePage()">Home Page</button>
+        <button id="signOut" onclick="signOut()">Sign Out</button>
 
-    <script>
+        <script>
         function toChangeData(key, which, orignalvalue) {
             console.log(key + which);
             var postValue = document.getElementById(key + which).value;
@@ -100,7 +101,14 @@
                 document.getElementById(name + which).value = orignalvalue;
             }
         }
-
+        function toDeleteData(key){
+            var postValue = document.getElementById(key).value;
+            var YesOrNo = confirm("Sure to delete " + key + "?");
+            if (YesOrNo == true) {
+                firebase.database().ref(firebaseUid + '/ClientsData/' + key).remove();
+                location.replace("https://boy860521.github.io/ClientManagement");
+            } 
+        }
         function homePage() {
             location.replace("https://boy860521.github.io/");
         }
@@ -130,10 +138,10 @@
                 name.value = '';
                 gender.value = '';
                 age.value = '';
-                location.replace("https://boy860521.github.io/addClient");
+                location.replace("https://boy860521.github.io/ClientManagement");
             }
         }
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

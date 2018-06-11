@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Scene Management</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
-</head>
+    <head>
+        <title>Scene Management</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="deafult.css" rel="stylesheet" type="text/css"
+            media="screen">
+    </head>
 
-<body>
-    <table style="width: 100%;">
-        <tr>
-            <th id="pre"></th>
-        </tr>
-    </table>
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-    <script>
+    <body>
+        <table style="width: 100%;">
+            <tr>
+                <th id="pre"></th>
+            </tr>
+        </table>
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+        <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
@@ -52,18 +53,18 @@
                 }
             });
         });
-    </script>
+        </script>
 
-    <table>
-        <tr>
-            <th><input type="text" placeholder="Scene Name" id="name"></th>
-        </tr>
-    </table>
-    <button id="add" onclick="addScene()">Add Scene</button>
-    <button id="homePage" onclick="homePage()">Home Page</button>
-    <button id="signOut" onclick="signOut()">Sign Out</button>
+        <table>
+            <tr>
+                <th><input type="text" placeholder="Scene Name" id="name"></th>
+            </tr>
+        </table>
+        <button id="add" onclick="addScene()">Add Scene</button>
+        <button id="homePage" onclick="homePage()">Home Page</button>
+        <button id="signOut" onclick="signOut()">Sign Out</button>
 
-    <script>
+        <script>
         function toSceneDataManagement(which) {
             sessionStorage.setItem("sceneName", which);
             location.replace("https://boy860521.github.io/SceneDataManagement");
@@ -96,7 +97,7 @@
                 location.replace("https://boy860521.github.io/SceneManagement");
             }
         }
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

@@ -73,7 +73,9 @@
                         state.innerHTML = "Select";
                     }
                 );
-                console.log(storageRef.getDownloadURL());
+                storageRef.getDownloadURL().then(function(url){
+                    console.log(url);
+                });
             }
         </script>
     </body>

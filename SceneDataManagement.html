@@ -78,6 +78,7 @@
                         state.innerHTML = "something is wrong";
                     },
                     function complete(){
+                        console.log(time.value);
                         firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({
                             path: firebaseUid + '/sceneDataImage/' + file.name,
                             time: time.value

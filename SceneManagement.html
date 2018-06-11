@@ -38,8 +38,7 @@
             console.log(snapshot.val());
             console.log(snapshot.numChildren());
             snapshot.forEach(function(childSnapshot) {
-                var key = childSnapshot.key; //輸出要有順序
-                //var childData = childSnapshot.val();
+                var key = childSnapshot.key; 
                 
                 if (key != "state"){
                     var btn = document.createElement("button");

@@ -27,6 +27,7 @@
             firebase.initializeApp(config);
     
             var firebaseUid = sessionStorage.getItem("firebaseUid");
+            var sceneName = sessionStorage.getItem("sceneName");
             console.log(firebaseUid + "has logged in.");
             if (firebaseUid == null)
                 location.replace("https://boy860521.github.io/");
@@ -55,12 +56,14 @@
                 });
             });*/
         </script>
-        <img id = "sceneImage" alt="pug">
+        <img id="sceneImage" alt="no image has been uploaded.">
+        <input type="datetime-local" id="time">
         <input type="file" id="file" style="display: none;">
         <button id="selectPicture"><label for="file">Select</label></button>
         <button id="addPicture" onclick="addPicture()">Add</button>
         <script>
             function addPicture(){
+                var time = document.getElementById("time");
                 var File = document.getElementById("file");
                 var state = document.getElementById("selectPicture");
                 var file = File.files[0];
@@ -74,12 +77,16 @@
                         state.innerHTML = "something is wrong";
                     },
                     function complete(){
+                        firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({
+                            path: firebaseUid + '/sceneDataImage/' + file.name,
+                            time: time.value
+                        });
+                        location.replace("https://boy860521.github.io/SceneDataManagement");
                         window.alert("File is uploaded.");
-                        state.innerHTML = "Select";
                     }
                 );
                 
             }
         </script>
     </body>
-</html>
+</html>>>>

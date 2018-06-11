@@ -16,14 +16,6 @@ input[type=text], [type=datetime-local]{
     text-align: center;
 }
 
-.picture {
-    width: 70%;
-}
-
-.picture_description {
-    width: 70%;
-}
-
 button {
     width: 70%;
     height: 80px;

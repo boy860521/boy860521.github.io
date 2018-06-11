@@ -37,24 +37,23 @@
             snapshot.forEach(function(childSnapshot) {
                 var key = childSnapshot.key; 
                 
-                
-                    var th = document.createElement("th");
-                    var tr = document.createElement("tr");
-                    var btn = document.createElement("button");
-                    btn.setAttribute('class', 'smaller');
-                    btn.innerText = key;
-                    btn.setAttribute('onclick', 'toSceneDataManagement("' + key + '")');
-                    var deleteButton = document.createElement("button");
-                    deleteButton.setAttribute('class', 'delete');
-                    deleteButton.innerHTML = "X";
-                    deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
-                    btn.appendChild(deleteButton);
-                    th.appendChild(btn);
-                    tr.appendChild(th);
-                    pre.appendChild(tr);
-                
+                var th = document.createElement("th");
+                var tr = document.createElement("tr");
+                var btn = document.createElement("button");
+                btn.setAttribute('class', 'smaller');
+                btn.innerText = key;
+                btn.setAttribute('onclick', 'toSceneDataManagement("' + key + '")');
+                var deleteButton = document.createElement("button");
+                deleteButton.setAttribute('class', 'delete');
+                deleteButton.innerHTML = "X";
+                deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
+                btn.appendChild(deleteButton);
+                th.appendChild(btn);
+                tr.appendChild(th);
+                pre.appendChild(tr);
             });
         });
+        document.getElementById("state").style = "display: none";
         </script>
 
         <table>

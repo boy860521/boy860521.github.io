@@ -51,15 +51,27 @@
             });*/
         </script>
         <input type="file" id="file" style="display: none;">
-        <button id="selectPicture"><label for="file">select picture</label></button>
+        <button id="selectPicture"><label for="file">Select A Picture</label></button>
         <button id="addPicture" onclick="addPicture()">add picture</button>
         <script>
             function addPicture(){
                 var File = document.getElementById("file");
-
+                var state = document.getElementById("selectPicture");
                 var file = File.files[0];
                 var storageRef = firebase.storage().ref(firebaseUid + '/abc/' + file.name);
                 var task = storageRef.put(file);
+                task.on('state_changed',
+                    function progress(snapshot){
+                        state.innerHTML = "uploading...";
+                    },
+                    function error(err){
+                        state.innerHTML = "something is wrong";
+                    },
+                    function complete(){
+                        window.alert("Picture is uploaded.")
+                        state.innerHTML = "Select A Picture";
+                    }
+                );
             }
         </script>
     </body>

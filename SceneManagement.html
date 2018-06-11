@@ -40,8 +40,9 @@
             snapshot.forEach(function(childSnapshot) {
                 var key = childSnapshot.key; //輸出要有順序
                 //var childData = childSnapshot.val();
-                var btn = document.createElement("button");
+                
                 if (key != "state"){
+                    var btn = document.createElement("button");
                     btn.innerText = key;
                     btn.setAttribute('onclick', 'toSceneDataManagement("' + key + '")');
                     var deleteButton = document.createElement("button");

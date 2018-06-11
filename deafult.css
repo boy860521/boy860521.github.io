@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     display: flex;
     min-height: 100vh;
@@ -43,3 +44,44 @@ table,
 tr {
     width: 70%;
 }
+=======
+body {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+input[type=text] {
+    width: 100%;
+    font-size: 50px;
+    margin: 1px;
+    text-align: center;
+}
+
+.picture {
+    width: 70%;
+}
+
+.picture_description {
+    width: 70%;
+}
+
+button {
+    width: 70%;
+    height: 80px;
+    background-color: rgb(7, 110, 228);
+    font-size: 50px;
+    margin: 1px;
+    color: white;
+}
+
+table,
+tr {
+    width: 70%;
+}
+>>>>>>> ac7258546feb615d81d15ad66b7eb3d4242b3e85

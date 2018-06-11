@@ -31,6 +31,7 @@ button {
     font-size: 50px;
     margin: 1px;
     color: white;
+    position: relative;
 }
 .delete{
     background-color: 	#ccc;

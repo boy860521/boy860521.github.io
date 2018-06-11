@@ -41,6 +41,7 @@
                 var key = childSnapshot.key; 
                 
                 if (key != "state"){
+                    var tr = document.createElement("tr");
                     var btn = document.createElement("button");
                     btn.setAttribute('class', 'smaller');
                     btn.innerText = key;
@@ -49,8 +50,9 @@
                     deleteButton.setAttribute('class', 'delete');
                     deleteButton.innerHTML = "X";
                     deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
-                    btn.appendChild(deleteButton);
-                    pre.appendChild(btn);
+                    tr.appendChild(deleteButton);
+                    tr.appendChild(btn);
+                    pre.appendChild(tr);
                 }
             });
         });

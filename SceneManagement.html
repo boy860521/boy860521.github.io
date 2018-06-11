@@ -37,7 +37,7 @@
             snapshot.forEach(function(childSnapshot) {
                 var key = childSnapshot.key; 
                 
-                if (key != "state"){
+                
                     var th = document.createElement("th");
                     var tr = document.createElement("tr");
                     var btn = document.createElement("button");
@@ -52,7 +52,7 @@
                     th.appendChild(btn);
                     tr.appendChild(th);
                     pre.appendChild(tr);
-                }
+                
             });
         });
         </script>

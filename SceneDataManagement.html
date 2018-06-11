@@ -32,11 +32,11 @@
             console.log(firebaseUid + "has logged in.");
             if (firebaseUid == null)
                 location.replace("https://boy860521.github.io/");
-            var Ref = firebase.storage().ref(firebaseUid + '/abc/pug.jpg');
+            /*var Ref = firebase.storage().ref(firebaseUid + '/abc/pug.jpg');
             Ref.getDownloadURL().then(function(url){
                 console.log(url);
                 document.getElementById("sceneImage").src = url;
-            });
+            });*/
             var pre = document.getElementById("pre");
             /*firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function(snapshot) {
                 console.log(snapshot.val());

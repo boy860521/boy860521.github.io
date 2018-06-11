@@ -49,9 +49,8 @@
                     deleteButton.innerHTML = "X";
                     deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
                     btn.appendChild(deleteButton);
-                    th.appendChild(btn);
-                    tr.appendChild(th);
-                    pre.appendChild(tr);
+                    
+                    pre.appendChild(btn);
                 }
             });
         });

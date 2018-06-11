@@ -102,7 +102,6 @@
             }
         }
         function toDeleteData(key){
-            var postValue = document.getElementById(key).value;
             var YesOrNo = confirm("Sure to delete " + key + "?");
             if (YesOrNo == true) {
                 firebase.database().ref(firebaseUid + '/ClientsData/' + key).remove();

@@ -41,7 +41,7 @@
                 var key = childSnapshot.key; //輸出要有順序
                 //var childData = childSnapshot.val();
                 var btn = document.createElement("button");
-                if (key == "state") {} else {
+                if (key != "state"){
                     btn.innerText = key;
                     btn.setAttribute('onclick', 'toSceneDataManagement("' + key + '")');
                     var deleteButton = document.createElement("button");
@@ -65,6 +65,13 @@
         <button id="signOut" onclick="signOut()">Sign Out</button>
 
         <script>
+        function toDeleteData(key){
+            var YesOrNo = confirm("Sure to delete " + key + "?");
+            if (YesOrNo == true) {
+                firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + key).remove();
+                location.replace("https://boy860521.github.io/ClientManagement");
+            } 
+        }
         function toSceneDataManagement(which) {
             sessionStorage.setItem("sceneName", which);
             location.replace("https://boy860521.github.io/SceneDataManagement");

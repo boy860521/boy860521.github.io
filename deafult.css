@@ -9,7 +9,7 @@ body {
     flex-direction: column;
 }  
 
-input[type=text] {
+input[type=text], [type=datetime-local]{
     width: 100%;
     font-size: 50px;
     margin: 1px;

@@ -45,9 +45,12 @@ button {
     width: 5%;
 }
 
-table,th,tr {
+table,tr {
     position: relative;
     width: 70%;
+}
+th{
+    position: relative;
 }
 img {
     display: block;

@@ -58,7 +58,7 @@
                 var File = document.getElementById("file");
 
                 var file = File.files[0];
-                var storageRef = firebase.storage().ref(user.uid + '/abc/' + file.name);
+                var storageRef = firebase.storage().ref(firebaseUid + '/abc/' + file.name);
                 var task = storageRef.put(file);
             }
         </script>

@@ -41,6 +41,9 @@
                 var btn = document.createElement("button");
                 btn.innerText = key;
                 btn.setAttribute('onclick', 'toSceneManagement("' + key + '")');
+                var deleteButton = document.createElement("button");
+                deleteButton.class = "delete";
+                btn.appendChild(deleteButton);
                 pre.appendChild(btn);
             });
         });

@@ -7,6 +7,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
 }  
 
 input[type=text], [type=datetime-local]{
@@ -14,6 +15,7 @@ input[type=text], [type=datetime-local]{
     font-size: 50px;
     margin: 1px;
     text-align: center;
+    position: relative;
 }
 
 .picture {
@@ -46,11 +48,7 @@ button {
 }
 
 table,tr {
-    position: relative;
     width: 70%;
-}
-th{
-    position: relative;
 }
 img {
     display: block;

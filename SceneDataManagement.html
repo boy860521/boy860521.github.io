@@ -60,7 +60,7 @@
         <img id="sceneImage" alt="no image has been uploaded." >
         <input type="datetime-local" id="time" style="width: 69%">
         <input type="file" id="file" style="display: none;">
-        <label for="file"><button id="selectPicture">Select</button></label>
+        <button id="selectPicture"><label for="file">Select</label></button>
         <button id="addPicture" onclick="addPicture()">Add</button>
         <script>
             function addPicture(){
@@ -78,13 +78,12 @@
                         state.innerHTML = "something is wrong";
                     },
                     function complete(){
-                        console.log(time.value);
                         firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({
                             path: firebaseUid + '/sceneDataImage/' + file.name,
                             time: time.value
                         });
-                        window.alert("File is uploaded.");
                         location.replace("https://boy860521.github.io/SceneDataManagement");
+                        window.alert("File is uploaded.");
                     }
                 );
                 

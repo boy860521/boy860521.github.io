@@ -10,10 +10,7 @@
     </head>
 
     <body>
-        <table style="width: 100%;">
-            <tr>
-                <th id="pre"></th>
-            </tr>
+        <table style="width: 100%;" id="pre">
         </table>
         <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
         <script>
@@ -38,7 +35,9 @@
             console.log(snapshot.numChildren());
             snapshot.forEach(function(childSnapshot) {
                 var key = childSnapshot.key;
-                //var childData = childSnapshot.val();
+                
+                var tr = document.createElement("tr");
+                var th = document.createElement("th");
                 var btn = document.createElement("button");
                 btn.setAttribute('class', 'smaller');
                 btn.innerText = key;
@@ -48,6 +47,8 @@
                 deleteButton.innerHTML = "X";
                 deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
                 btn.appendChild(deleteButton);
+                th.appendChild(btn);
+                tr.appendChild(th);
                 pre.appendChild(btn);
             });
         });

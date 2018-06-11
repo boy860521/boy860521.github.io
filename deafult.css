@@ -41,8 +41,7 @@ button {
     width: 5%;
 }
 
-table,
-tr {
+table,th,tr {
     position: relative;
     width: 70%;
     height: 65px;

@@ -27,6 +27,7 @@
             firebase.initializeApp(config);
     
             var firebaseUid = sessionStorage.getItem("firebaseUid");
+            var itineraryName = sessionStorage.getItem("itineraryName");
             var sceneName = sessionStorage.getItem("sceneName");
             console.log(firebaseUid + "has logged in.");
             if (firebaseUid == null)

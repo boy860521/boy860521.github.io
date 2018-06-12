@@ -56,7 +56,7 @@
             var time = document.getElementById("time");
             var description = document.getElementById("description");
             var state = document.getElementById("Update");
-            if (File != null) {
+            if (File.value != null) {
                 var file = File.files[0];
                 var storageRef = firebase.storage().ref(firebaseUid + '/sceneDataImage/' + sceneName + '/' + file.name);
                 var task = storageRef.put(file);

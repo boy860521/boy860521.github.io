@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Itinerary Management</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="deafult.css" rel="stylesheet" type="text/css"
-            media="screen">
-    </head>
+<head>
+    <title>Itinerary Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
+</head>
 
-    <body>
-        <table id="pre">
-        </table>
-        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-        <script>
+<body>
+    <table id="pre">
+    </table>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
@@ -30,12 +29,12 @@
         if (firebaseUid == null)
             location.replace("https://boy860521.github.io/");
         var pre = document.getElementById("pre");
-        firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function(snapshot) {
+        firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function (snapshot) {
             console.log(snapshot.val());
             console.log(snapshot.numChildren());
-            snapshot.forEach(function(childSnapshot) {
+            snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key;
-                
+
                 var tr = document.createElement("tr");
                 var th = document.createElement("th");
                 var btn = document.createElement("button");
@@ -52,23 +51,38 @@
                 pre.appendChild(tr);
             });
         });
-        </script>
+    </script>
 
-        <table>
-            <tr>
-                <th><input type="text" placeholder="Itinerary Name" id="name"></th>
-            </tr>
-        </table>
-        <button id="add" onclick="addItinerary()">Add Itinerary</button>
-        <button onclick="Return()" class="backTo">Return</button>
+    <table>
+        <tr>
+            <th>
+                <input type="text" placeholder="Itinerary Name" id="name">
+            </th>
+        </tr>
+    </table>
+    <button id="add" onclick="addItinerary()">Add Itinerary</button>
+    <button onclick="Return()" class="backTo">Return</button>
 
-        <script>
-        function toDeleteData(key){
+    <script>
+        function toDeleteData(key) {
             var YesOrNo = confirm("Sure to delete " + key + "?");
             if (YesOrNo == true) {
-                firebase.database().ref(firebaseUid + '/ItinerariesData/' + key).remove();
-                location.replace("https://boy860521.github.io/ItineraryManagement.html");
-            } 
+                firebase.database().ref(firebaseUid + '/ItinerariesData/' + key).once('value', function (snapshot) {
+                    console.log(snapshot.val());
+                    console.log(snapshot.numChildren());
+                    snapshot.forEach(function (childSnapshot) {
+                        if (childSnapshot.key != 'state') {
+                            firebase.storage().ref(firebaseUid + '/' + key + '/sceneDataImage/' + childSnapshot.key + '/picutre').delete().then(function () {
+                                console.log(childSnapshot.key + " deleted successfully");
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }
+                    });
+                    firebase.database().ref(firebaseUid + '/ItinerariesData/' + key).remove();
+                });
+                //location.replace("https://boy860521.github.io/ItineraryManagement.html");
+            }
         }
         function toSceneManagement(which) {
             sessionStorage.setItem("itineraryName", which);
@@ -92,8 +106,8 @@
                 location.replace("https://boy860521.github.io/ItineraryManagement.html");
             }
         }
-        
-        </script>
-    </body>
+
+    </script>
+</body>
 
 </html>

@@ -38,22 +38,22 @@
                 // An error happened.
             });
             sessionStorage.removeItem("firebaseUid");
-            location.replace("https://boy860521.github.io/");
+            location.replace("http://localhost/");
         }
 
         function toCM() {
-            location.replace("https://boy860521.github.io/ClientManagement");
+            location.replace("http://localhost/ClientManagement.html");
         }
 
         function toIM() {
-            location.replace("https://boy860521.github.io/ItineraryManagement");
+            location.replace("http://localhost/ItineraryManagement.html");
         }
 
         if (sessionStorage.getItem("firebaseUid")) {
             document.getElementById("login").style.display = "none";
             document.getElementById("clientManagement").style.display = "inline-block";
             document.getElementById("itineraryManagement").style.display = "inline-block";
-            document.getElementById("signOut").style.display = "inline-block";
+            document.getElementById("signOut").setAttribute('style', 'display:inline-block;'+'background-color:#9d9d9d;');
         } else {
             document.getElementById("login").style.display = "inline-block";
             document.getElementById("clientManagement").style.display = "none";
@@ -73,7 +73,7 @@
                     document.getElementById("login").style.display = "none";
                     document.getElementById("clientManagement").style.display = "inline-block";
                     document.getElementById("itineraryManagement").style.display = "inline-block";
-                    document.getElementById("signOut").style.display = "inline-block";
+                    document.getElementById("signOut").setAttribute('style', 'display:inline-block;'+'background-color:#9d9d9d;');
                 }
             }).catch(function(error) {
                 // Handle Errors here.

@@ -1,93 +1,92 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Scene Data Management</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="deafult.css" rel="stylesheet" type="text/css"
-            media="screen">
-    </head>
-    <body>
-        <table style="width: 100%;">
-            <tr>
-                <th id="pre"></th>
-            </tr>
-        </table>
-        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
-                authDomain: "smallmonster-fdf5b.firebaseapp.com",
-                databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
-                projectId: "smallmonster-fdf5b",
-                storageBucket: "smallmonster-fdf5b.appspot.com",
-                messagingSenderId: "139238440125"
-            };
-            firebase.initializeApp(config);
-    
-            var firebaseUid = sessionStorage.getItem("firebaseUid");
-            var itineraryName = sessionStorage.getItem("itineraryName");
-            var sceneName = sessionStorage.getItem("sceneName");
-            console.log(firebaseUid + "has logged in.");
-            if (firebaseUid == null)
-                location.replace("https://boy860521.github.io/");
-            /*var Ref = firebase.storage().ref(firebaseUid + '/abc/pug.jpg');
-            Ref.getDownloadURL().then(function(url){
+
+<head>
+    <title>Scene Data Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        var itineraryName = sessionStorage.getItem("itineraryName");
+        var sceneName = sessionStorage.getItem("sceneName");
+        var originalFilePath;
+        console.log(firebaseUid + "has logged in.");
+        if (firebaseUid == null)
+            location.replace("https://boy860521.github.io/");
+        var pre = document.getElementById("pre");
+        firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).once('value', function (snapshot) {
+            var Ref = firebase.storage().ref(snapshot.val().path);
+            Ref.getDownloadURL().then(function (url) {
                 console.log(url);
                 document.getElementById("sceneImage").src = url;
-            });*/
-            var pre = document.getElementById("pre");
-            /*firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function(snapshot) {
-                console.log(snapshot.val());
-                console.log(snapshot.numChildren());
-                snapshot.forEach(function(childSnapshot) {
-                    var key = childSnapshot.key;
-                    //var childData = childSnapshot.val();
-                    var btn = document.createElement("button");
-                    btn.setAttribute('class', 'smaller');
-                    btn.innerText = key;
-                    btn.setAttribute('onclick', 'toSceneManagement("' + key + '")');
-                    var deleteButton = document.createElement("button");
-                    deleteButton.setAttribute('class', 'delete');
-                    deleteButton.innerHTML = "X";
-                    deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
-                    btn.appendChild(deleteButton);
-                    pre.appendChild(btn);
-                });
-            });*/
-        </script>
-        <img id="sceneImage" alt="no image has been uploaded." >
-        <input type="datetime-local" id="time" style="width: 69%">
-        <input type="file" id="file" style="display: none;">
-        <button id="selectPicture"><label for="file">Select</label></button>
-        <button id="addPicture" onclick="addPicture()">Add</button>
-        <script>
-            function addPicture(){
-                var time = document.getElementById("time");
-                var File = document.getElementById("file");
-                var state = document.getElementById("selectPicture");
+            });
+            document.getElementById("time").value = snapshot.val().time;
+            document.getElementById("description").value = snapshot.val().description;
+            originalFilePath = snapshot.val().path;
+        });
+    </script>
+    <img id="sceneImage" alt="no image has been uploaded.">
+    <input type="file" id="file">
+    <input type="datetime-local" id="time" style="width: 70%">
+    <textarea id="description" placeholder="Something about it"></textarea>
+    <button id="Update" onclick="Update()">Update</button>
+    <button onclick="Return()" class="backTo">Return</button>
+    <script>
+        function Return() {
+            location.replace("https://boy860521.github.io/SceneManagement.html");
+        }
+        function Update() {
+            var File = document.getElementById("file");
+            var time = document.getElementById("time");
+            var description = document.getElementById("description");
+            var state = document.getElementById("Update");
+            if (file != null) {
                 var file = File.files[0];
-                var storageRef = firebase.storage().ref(firebaseUid + '/sceneDataImage/' + file.name);
+                var storageRef = firebase.storage().ref(firebaseUid + '/sceneDataImage/' + sceneName + '/' + file.name);
                 var task = storageRef.put(file);
                 task.on('state_changed',
-                    function progress(snapshot){
+                    function progress(snapshot) {
                         state.innerHTML = "uploading...";
                     },
-                    function error(err){
+                    function error(err) {
                         state.innerHTML = "something is wrong";
                     },
-                    function complete(){
-                        firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({
-                            path: firebaseUid + '/sceneDataImage/' + sceneName + '/' + file.name,
-                            time: time.value
-                        });
+                    function complete() {
                         window.alert("File is uploaded.");
-                        //location.replace("https://boy860521.github.io/SceneDataManagement");
                     }
                 );
-                
+                firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({
+                    path: firebaseUid + '/sceneDataImage/' + sceneName + '/' + file.name,
+                    time: time.value,
+                    description: description.value
+                });
             }
-        </script>
-    </body>
+            else{
+                firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({
+                    path: originalFilePath,
+                    time: time.value,
+                    description: description.value
+                });
+            }
+            location.replace("https://boy860521.github.io/SceneDataManagement.html");
+        }
+    </script>
+</body>
+
 </html>

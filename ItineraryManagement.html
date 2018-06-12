@@ -10,7 +10,7 @@
     </head>
 
     <body>
-        <table style="width: 100%;" id="pre">
+        <table id="pre">
         </table>
         <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
         <script>
@@ -37,20 +37,18 @@
                 var key = childSnapshot.key;
                 
                 var tr = document.createElement("tr");
-                var th1 = document.createElement("th");
-                var th2 = document.createElement("th");
+                var th = document.createElement("th");
                 var btn = document.createElement("button");
                 btn.innerText = key;
                 btn.setAttribute('onclick', 'toSceneManagement("' + key + '")');
-                btn.setAttribute('colspan', '7');
+                btn.setAttribute('class', 'smaller');
                 var deleteButton = document.createElement("button");
-                deleteButton.setAttribute('class', 'delete');
+                deleteButton.setAttribute('class', 'deletePlace');
                 deleteButton.innerHTML = "X";
                 deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
-                th2.appendChild(deleteButton);
-                th1.appendChild(btn);
-                tr.appendChild(th1);
-                tr.appendChild(th2);
+                th.appendChild(btn);
+                th.appendChild(deleteButton);
+                tr.appendChild(th);
                 pre.appendChild(tr);
             });
         });
@@ -62,33 +60,22 @@
             </tr>
         </table>
         <button id="add" onclick="addItinerary()">Add Itinerary</button>
-        <button id="homePage" onclick="homePage()">Home Page</button>
-        <button id="signOut" onclick="signOut()">Sign Out</button>
+        <button onclick="Return()" class="backTo">Return</button>
 
         <script>
         function toDeleteData(key){
             var YesOrNo = confirm("Sure to delete " + key + "?");
             if (YesOrNo == true) {
                 firebase.database().ref(firebaseUid + '/ItinerariesData/' + key).remove();
-                location.replace("https://boy860521.github.io/ItineraryManagement");
+                location.replace("https://boy860521.github.io/ItineraryManagement.html");
             } 
         }
         function toSceneManagement(which) {
             sessionStorage.setItem("itineraryName", which);
-            location.replace("https://boy860521.github.io/SceneManagement");
+            location.replace("https://boy860521.github.io/SceneManagement.html");
         }
 
-        function homePage() {
-            location.replace("https://boy860521.github.io/");
-        }
-
-        function signOut() {
-            firebase.auth().signOut().then(function() {
-                // Sign-out successful.
-            }).catch(function(error) {
-                // An error happened.
-            });
-            sessionStorage.removeItem("firebaseUid");
+        function Return() {
             location.replace("https://boy860521.github.io/");
         }
 
@@ -102,7 +89,7 @@
                     state: "ON"
                 });
                 name.value = '';
-                location.replace("https://boy860521.github.io/ItineraryManagement");
+                location.replace("https://boy860521.github.io/ItineraryManagement.html");
             }
         }
         

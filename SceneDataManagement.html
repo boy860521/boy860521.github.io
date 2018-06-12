@@ -27,17 +27,17 @@
         var sceneName = sessionStorage.getItem("sceneName");
         var originalFilePath;
         console.log(firebaseUid + "has logged in.");
-        if (firebaseUid == null){
+        if (firebaseUid == null)
             location.replace("https://boy860521.github.io/");
-            var pre = document.getElementById("pre");
-            firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).once('value', function (snapshot) {
-                if(snapshot.val().path != null)
-                    var Ref = firebase.storage().ref(snapshot.val().path);
+        var pre = document.getElementById("pre");
+        firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).once('value', function (snapshot) {
+            if(snapshot.val().path != null){
+                var Ref = firebase.storage().ref(snapshot.val().path);
                 Ref.getDownloadURL().then(function (url) {
                     console.log(url);
                     document.getElementById("sceneImage").src = url;
                 });
-        }
+            }
             document.getElementById("time").value = snapshot.val().time;
             document.getElementById("description").value = snapshot.val().description;
             originalFilePath = snapshot.val().path;

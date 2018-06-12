@@ -71,14 +71,14 @@
                         state.innerHTML = "something is wrong";
                     },
                     function complete() {
+                        firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({
+                            path: firebaseUid + '/sceneDataImage/' + sceneName + '/' + file.name,
+                            time: time.value,
+                            description: description.value
+                        });
                         window.alert("File is uploaded.");
                     }
                 );
-                firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({
-                    path: firebaseUid + '/sceneDataImage/' + sceneName + '/' + file.name,
-                    time: time.value,
-                    description: description.value
-                });
             }
             else{
                 firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + sceneName).set({

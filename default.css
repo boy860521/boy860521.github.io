@@ -1,0 +1,60 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}  
+
+input[type=text], [type=datetime-local]{
+    width: 100%;
+    font-size: 50px;
+    margin: 1px;
+    text-align: center;
+}
+
+textarea{
+    width: 70%;
+    height: 240px;
+    font-size: 20px;
+    margin: 1px;
+}
+
+button {
+    width: 70%;
+    height: 80px;
+    background-color: rgb(7, 110, 228);
+    font-size: 50px;
+    margin: 1px;
+    color: white;
+}
+.smaller{
+    width: 93%;
+}
+.deletePlace{
+    background-color: #9d9d9d;
+    width: 6.5%;
+}
+.deleteClient{
+    background-color: 	#9d9d9d;
+    width: 100%;
+    height: 62px;
+}
+.backTo{
+    background-color: 	#9d9d9d;
+}
+
+table,tr {
+    width: 70%;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70%;
+    height: auto;
+}

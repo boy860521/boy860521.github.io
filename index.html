@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Entrance</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="defualt.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <button id="login" onclick="login()">Admin Login</button>
+    <script>
+        if (sessionStorage.getItem("firebaseUid")) {
+            location.replace("https://boy860521.github.io/ItinerariesManagement.html");
+        }
+
+        function login() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            var user;
+            firebase.auth().signInWithPopup(provider).then(function(result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                if (result.user) {
+                    sessionStorage.setItem("firebaseUid", result.user.uid);
+                    location.replace("https://boy860521.github.io/ItinerariesManagement.html");
+                }
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+            });
+            user = firebase.auth().currentUser;
+            if (user != null) {
+                user.providerData.forEach(function(profile) {
+                    console.log("Sign-in provider: " + profile.providerId);
+                    console.log("  Provider-specific UID: " + profile.uid);
+                    console.log("  Name: " + profile.displayName);
+                    console.log("  Email: " + profile.email);
+                    console.log("  Photo URL: " + profile.photoURL);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Itinerary Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="default.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    </table>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        var itineraryKey = sessionStorage.getItem("itineraryKey");
+        console.log(firebaseUid + "has logged in.");
+        if (firebaseUid == null || itineraryKey == null)
+            location.replace("https://boy860521.github.io/");
+    </script>
+
+    <button onclick="toCM()">Clients Management</button>
+    <button onclick="toSM()">Scenes Management</button>
+    <button onclick="Return()" class="backTo">Return</button>
+
+    <script>
+        function toCM() {
+            location.replace("https://boy860521.github.io/ClientsManagement.html");
+        }
+
+        function toSM() {
+            location.replace("https://boy860521.github.io/ScenesManagement.html");
+        }
+
+        function Return() {
+            location.replace("https://boy860521.github.io/");
+        }
+    </script>
+</body>
+
+</html>

@@ -73,7 +73,7 @@
         function toDeleteData(key) {
             var YesOrNo = confirm("Sure to delete " + key + "?");
             if (YesOrNo == true) {
-                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/' + key).remove();
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData/' + key).remove();
                 firebase.storage().ref(firebaseUid + '/' + itineraryKey + '/sceneDataImage/' + key + '/picutre').delete().then(function() {
                     console.log("File deleted successfully");
                     location.replace("https://boy860521.github.io/ScenesManagement.html");
@@ -95,7 +95,7 @@
             if (name.value == '') {
                 window.alert("Name should not be empty");
             } else {
-                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/' + name.value).set({
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData/' + name.value).set({
                     description: ""
                 });
                 name.value = '';

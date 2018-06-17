@@ -31,7 +31,7 @@
             location.replace("https://boy860521.github.io/");
         }
         var pre = document.getElementById("pre");
-        firebase.database().ref(firebaseUid + '/' + itineraryKey).orderByChild('time').once('value', function(snapshot) {
+        firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData').orderByChild('time').once('value', function(snapshot) {
             //console.log(snapshot.val());console.log(snapshot.numChildren());
             snapshot.forEach(function(childSnapshot) {
                 var key = childSnapshot.key;

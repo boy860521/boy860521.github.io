@@ -76,12 +76,11 @@
                 firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData/' + key).remove();
                 firebase.storage().ref(firebaseUid + '/' + itineraryKey + '/sceneDataImage/' + key + '/picutre').delete().then(function() {
                     console.log("File deleted successfully");
-                    location.replace("https://boy860521.github.io/ScenesManagement.html");
                 }).catch(function(error) {
                     console.log(error);
                 });
-
             }
+            location.replace("https://boy860521.github.io/ScenesManagement.html");
         }
 
         function toSceneDataManagement(which) {

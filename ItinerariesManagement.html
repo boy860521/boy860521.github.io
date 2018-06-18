@@ -29,10 +29,10 @@
         if (firebaseUid == null)
             location.replace("https://boy860521.github.io/");
         var pre = document.getElementById("pre");
-        firebase.database().ref(firebaseUid).once('value', function(snapshot) {
+        firebase.database().ref(firebaseUid).once('value', function (snapshot) {
             console.log(snapshot.val());
             console.log(snapshot.numChildren());
-            snapshot.forEach(function(childSnapshot) {
+            snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key;
                 var name = childSnapshot.val().name;
                 var tr = document.createElement("tr");
@@ -65,9 +65,9 @@
 
     <script>
         function signOut() {
-            firebase.auth().signOut().then(function() {
+            firebase.auth().signOut().then(function () {
                 // Sign-out successful.
-            }).catch(function(error) {
+            }).catch(function (error) {
                 // An error happened.
             });
             sessionStorage.removeItem("firebaseUid");
@@ -77,24 +77,24 @@
         function toDeleteData(key, name) {
             var YesOrNo = confirm("Sure to delete " + name + "?");
             if (YesOrNo == true) {
-                firebase.database().ref(firebaseUid + '/' + key).once('value', function(snapshot) {
+                firebase.database().ref(firebaseUid + '/' + key).once('value', function (snapshot) {
                     console.log(snapshot.val());
                     console.log(snapshot.numChildren());
                     // delete all unused image
-                    snapshot.forEach(function(childSnapshot) {
+                    snapshot.forEach(function (childSnapshot) {
                         if (childSnapshot.key != 'name') {
-                            firebase.storage().ref(firebaseUid + '/' + key + '/sceneDataImage/' + childSnapshot.key + '/picutre').delete().then(function() {
+                            firebase.storage().ref(firebaseUid + '/' + key + '/sceneDataImage/' + childSnapshot.key + '/picutre').delete().then(function () {
                                 console.log(childSnapshot.key + " deleted successfully");
-                            }).catch(function(error) {
+                            }).catch(function (error) {
                                 console.log(error);
                             });
                         }
                     });
                     firebase.database().ref(firebaseUid + '/' + key).remove()
-                        .then(function() {
+                        .then(function () {
                             location.replace("https://boy860521.github.io/ItinerariesManagement.html");
                         })
-                        .catch(function(error) {
+                        .catch(function (error) {
                             console.log("Remove failed: " + error.message)
                         });
                 });
@@ -108,11 +108,15 @@
 
         function addItinerary() {
             var name = document.getElementById("name");
+            var code = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for (var i = 0; i < 6; i++)
+                code += possible.charAt(Math.floor(Math.random() * possible.length));
 
             if (name.value == '') {
                 window.alert("Name should not be empty");
             } else {
-                firebase.database().ref(firebaseUid).push().set({
+                firebase.database().ref(firebaseUid + '/' + code).set({
                     name: name.value
                 });
                 name.value = '';

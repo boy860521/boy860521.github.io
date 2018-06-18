@@ -31,6 +31,7 @@
         var pre = document.getElementById("pre");
         firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData/' + sceneName).once('value', function(snapshot) {
             var Ref = firebase.storage().ref(firebaseUid + '/' + itineraryKey + '/sceneDataImage/' + sceneName + '/picutre');
+            console.log(firebaseUid + '/' + itineraryKey + '/sceneDataImage/' + sceneName + '/picutre');
             Ref.getDownloadURL().then(function(url) {
                 console.log(url);
                 document.getElementById("sceneImage").src = url;

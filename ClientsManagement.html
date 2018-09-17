@@ -35,22 +35,23 @@
             console.log(snapshot.numChildren());
             snapshot.forEach(function(childSnapshot) {
                 var key = childSnapshot.key;
-                if(key == "updating_state") continue;
-                var name = childSnapshot.val().name;
-                var tr = document.createElement("tr");
-                var th = document.createElement("th");
-                var btn = document.createElement("button");
-                btn.innerText = name;
-                btn.setAttribute('onclick', 'toCleintManagement("' + key + '")');
-                btn.setAttribute('class', 'smaller');
-                var deleteButton = document.createElement("button");
-                deleteButton.setAttribute('class', 'deletePlace');
-                deleteButton.innerHTML = "X";
-                deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '", "' + name + '")');
-                th.appendChild(btn);
-                th.appendChild(deleteButton);
-                tr.appendChild(th);
-                table.appendChild(tr);
+                if(key != "updating_state"){
+                    var name = childSnapshot.val().name;
+                    var tr = document.createElement("tr");
+                    var th = document.createElement("th");
+                    var btn = document.createElement("button");
+                    btn.innerText = name;
+                    btn.setAttribute('onclick', 'toCleintManagement("' + key + '")');
+                    btn.setAttribute('class', 'smaller');
+                    var deleteButton = document.createElement("button");
+                    deleteButton.setAttribute('class', 'deletePlace');
+                    deleteButton.innerHTML = "X";
+                    deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '", "' + name + '")');
+                    th.appendChild(btn);
+                    th.appendChild(deleteButton);
+                    tr.appendChild(th);
+                    table.appendChild(tr);
+                }
             });
         });
         document.body.appendChild(table);

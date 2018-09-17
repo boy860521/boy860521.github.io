@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Client Management</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="deafult.css" rel="stylesheet" type="text/css"
-            media="screen">
-    </head>
+<head>
+    <title>Client Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="default.css" rel="stylesheet" type="text/css" media="screen">
+</head>
 
-    <body>
-        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-        <script>
+<body>
+    <table id="pre">
+        <tr>
+            <td>name:</td>
+            <td>
+                <input type="text" id="name"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>ID:</td>
+            <td>
+                <input type="text" id="ID"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>age:</td>
+            <td>
+                <input type="text" id="age"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>blood type:</td>
+            <td>
+                <input type="text" id="bloodType"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>medical history:</td>
+            <td>
+                <input type="text" id="medicalHistory"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>phone number:</td>
+            <td>
+                <input type="text" id="phoneNumber"></input>
+            </td>
+        </tr>
+    </table>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
@@ -24,114 +61,63 @@
         firebase.initializeApp(config);
 
         var firebaseUid = sessionStorage.getItem("firebaseUid");
+        var itineraryKey = sessionStorage.getItem("itineraryKey");
+        var clientKey = sessionStorage.getItem("clientKey");
         console.log(firebaseUid + "has logged in.");
-        if (firebaseUid == null)
+        if (firebaseUid == null || itineraryKey == null || clientKey == null)
             location.replace("https://boy860521.github.io/");
 
-        var table = document.createElement("table");
-        firebase.database().ref(firebaseUid + '/ClientsData/').once('value', function(snapshot) {
+        firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ClientsData/' + clientKey).once('value', function(snapshot) {
             console.log(snapshot.val());
             console.log(snapshot.numChildren());
-            snapshot.forEach(function(childSnapshot) {
-                var key = childSnapshot.key;
-                var childData = childSnapshot.val(); //lable for update
-                var tr = document.createElement("tr");
-                var th1 = document.createElement("th");
-                var data1 = document.createElement("input");
-                data1.type = "text";
-                data1.value = key;
-                data1.id = key + '1';
-                data1.setAttribute('onchange', 'toChangeData("' + key + '", "' + 1 + '", "' + key + '")');
-                th1.appendChild(data1);
-                tr.appendChild(th1);
-                var th2 = document.createElement("th");
-                var data2 = document.createElement("input");
-                data2.type = "text";
-                data2.value = childData.gender;
-                data2.id = key + '2';
-                data2.setAttribute('onchange', 'toChangeData("' + key + '", "' + 2 + '", "' + childData.gender + '")');
-                th2.appendChild(data2);
-                tr.appendChild(th2);
-                var th3 = document.createElement("th");
-                var data3 = document.createElement("input");
-                data3.type = "text";
-                data3.value = childData.age;
-                data3.id = key + '3';
-                data3.setAttribute('onchange', 'toChangeData("' + key + '", "' + 3 + '", "' + childData.age + '")');
-                th3.appendChild(data3);
-                tr.appendChild(th3);
-                var deleteButton = document.createElement("button");
-                deleteButton.setAttribute('class', 'deleteClient');
-                deleteButton.innerHTML = "X";
-                deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
-                var th4 = document.createElement("th");
-                th4.appendChild(deleteButton);
-                tr.appendChild(th4);
-                table.appendChild(tr);
-            });
-        });
-        document.body.appendChild(table);
-        </script>
-
-        <table>
-            <tr>
-                <th><input type="text" placeholder="name" id="name"></th>
-                <th><input type="text" placeholder="gender" id="gender"></th>
-                <th><input type="text" placeholder="age" id="age"></th>
-            </tr>
-        </table>
-        <button id="add" onclick="addClient()">Add Client</button>
-        <button onclick="Return()" class="backTo">Return</button>
-
-        <script>
-        function toChangeData(key, which, orignalvalue) {
-            console.log(key + which);
-            var postValue = document.getElementById(key + which).value;
-            var YesOrNo = confirm("Sure to change " + orignalvalue + " to " + postValue + "?");
-            if (YesOrNo == true) {
-                firebase.database().ref(firebaseUid + '/ClientsData/' + key).remove();
-                var name = document.getElementById(key + "1"),
-                    gender = document.getElementById(key + "2"),
-                    age = document.getElementById(key + "3");
-
-                firebase.database().ref(firebaseUid + '/ClientsData/' + name.value).set({
-                    gender: gender.value,
-                    age: age.value
-                });
-            } else {
-                document.getElementById(name + which).value = orignalvalue;
-            }
-        }
-        function toDeleteData(key){
-            var YesOrNo = confirm("Sure to delete " + key + "?");
-            if (YesOrNo == true) {
-                firebase.database().ref(firebaseUid + '/ClientsData/' + key).remove();
-                location.replace("https://boy860521.github.io/ClientManagement.html");
-            } 
-        }
-        function Return() {
-            location.replace("https://boy860521.github.io/");
-        }
-
-        function addClient() {
             var name = document.getElementById("name");
-            var gender = document.getElementById("gender");
+            name.value = snapshot.val().name;
+            name.setAttribute('onchange', 'toChangeData("name", "' + name.value + '")');
+            var ID = document.getElementById("ID");
+            ID.value = snapshot.val().ID;
+            ID.setAttribute('onchange', 'toChangeData("ID", "' + ID.value + '")');
             var age = document.getElementById("age");
+            age.value = snapshot.val().age;
+            age.setAttribute('onchange', 'toChangeData("age", "' + age.value + '")');
+            var bloodType = document.getElementById("bloodType");
+            bloodType.value = snapshot.val().bloodType;
+            bloodType.setAttribute('onchange', 'toChangeData("bloodType", "' + bloodType.value + '")');
+            var medicalHistory = document.getElementById("medicalHistory");
+            medicalHistory.value = snapshot.val().medicalHistory;
+            medicalHistory.setAttribute('onchange', 'toChangeData("medicalHistory", "' + medicalHistory.value + '")');
+            var phoneNumber = document.getElementById("phoneNumber");
+            phoneNumber.value = snapshot.val().phoneNumber;
+            phoneNumber.setAttribute('onchange', 'toChangeData("phoneNumber", "' + phoneNumber.value + '")');
+        });
+    </script>
+    <button onclick="Return()" class="backTo">Return</button>
 
-            if (name.value == '' || gender.value == '' || age.value == '') {
-                window.alert("Name, genger, and age should not be empty");
-            } else {
-                firebase.database().ref(firebaseUid + '/ClientsData/' + name.value).set({
-                    gender: gender.value,
-                    age: age.value
+    <script>
+        function toChangeData(key, orignalvalue) {
+            console.log(key);
+            var postValue = document.getElementById(key).value;
+            //var YesOrNo = confirm("Sure to change " + orignalvalue + " to " + postValue + "?");
+            if (key == "ID") {
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ClientsData/' + clientKey).remove();
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ClientsData/' + postValue).set({
+                    name: document.getElementById("name").value,
+                    ID: document.getElementById("ID").value,
+                    age: document.getElementById("age").value,
+                    bloodType: document.getElementById("bloodType").value,
+                    medicalHistory: document.getElementById("medicalHistory").value,
+                    phoneNumber: document.getElementById("phoneNumber").value
                 });
-                name.value = '';
-                gender.value = '';
-                age.value = '';
-                location.replace("https://boy860521.github.io/ClientManagement.html");
+                sessionStorage.setItem("clientKey", postValue);
+                clientKey = postValue;
             }
+            firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ClientsData/' + clientKey).child(key).set(postValue);
+
         }
-        </script>
-    </body>
+
+        function Return() {
+            location.replace("https://boy860521.github.io/ClientsManagement.html");
+        }
+    </script>
+</body>
 
 </html>

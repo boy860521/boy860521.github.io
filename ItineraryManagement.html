@@ -5,11 +5,10 @@
     <title>Itinerary Management</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="default.css" rel="stylesheet" type="text/css" media="screen">
 </head>
 
 <body>
-    <table id="pre">
     </table>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
     <script>
@@ -25,88 +24,28 @@
         firebase.initializeApp(config);
 
         var firebaseUid = sessionStorage.getItem("firebaseUid");
+        var itineraryKey = sessionStorage.getItem("itineraryKey");
         console.log(firebaseUid + "has logged in.");
-        if (firebaseUid == null)
+        if (firebaseUid == null || itineraryKey == null)
             location.replace("https://boy860521.github.io/");
-        var pre = document.getElementById("pre");
-        firebase.database().ref(firebaseUid + '/ItinerariesData/').once('value', function (snapshot) {
-            console.log(snapshot.val());
-            console.log(snapshot.numChildren());
-            snapshot.forEach(function (childSnapshot) {
-                var key = childSnapshot.key;
-
-                var tr = document.createElement("tr");
-                var th = document.createElement("th");
-                var btn = document.createElement("button");
-                btn.innerText = key;
-                btn.setAttribute('onclick', 'toSceneManagement("' + key + '")');
-                btn.setAttribute('class', 'smaller');
-                var deleteButton = document.createElement("button");
-                deleteButton.setAttribute('class', 'deletePlace');
-                deleteButton.innerHTML = "X";
-                deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
-                th.appendChild(btn);
-                th.appendChild(deleteButton);
-                tr.appendChild(th);
-                pre.appendChild(tr);
-            });
-        });
     </script>
 
-    <table>
-        <tr>
-            <th>
-                <input type="text" placeholder="Itinerary Name" id="name">
-            </th>
-        </tr>
-    </table>
-    <button id="add" onclick="addItinerary()">Add Itinerary</button>
+    <button onclick="toCM()">Clients Management</button>
+    <button onclick="toSM()">Scenes Management</button>
     <button onclick="Return()" class="backTo">Return</button>
 
     <script>
-        function toDeleteData(key) {
-            var YesOrNo = confirm("Sure to delete " + key + "?");
-            if (YesOrNo == true) {
-                firebase.database().ref(firebaseUid + '/ItinerariesData/' + key).once('value', function (snapshot) {
-                    console.log(snapshot.val());
-                    console.log(snapshot.numChildren());
-                    snapshot.forEach(function (childSnapshot) {
-                        if (childSnapshot.key != 'state') {
-                            firebase.storage().ref(firebaseUid + '/' + key + '/sceneDataImage/' + childSnapshot.key + '/picutre').delete().then(function () {
-                                console.log(childSnapshot.key + " deleted successfully");
-                            }).catch(function (error) {
-                                console.log(error);
-                            });
-                        }
-                    });
-                    firebase.database().ref(firebaseUid + '/ItinerariesData/' + key).remove();
-                });
-                //location.replace("https://boy860521.github.io/ItineraryManagement.html");
-            }
+        function toCM() {
+            location.replace("https://boy860521.github.io/ClientsManagement.html");
         }
-        function toSceneManagement(which) {
-            sessionStorage.setItem("itineraryName", which);
-            location.replace("https://boy860521.github.io/SceneManagement.html");
+
+        function toSM() {
+            location.replace("https://boy860521.github.io/ScenesManagement.html");
         }
 
         function Return() {
             location.replace("https://boy860521.github.io/");
         }
-
-        function addItinerary() {
-            var name = document.getElementById("name");
-
-            if (name.value == '') {
-                window.alert("Name should not be empty");
-            } else {
-                firebase.database().ref(firebaseUid + '/ItinerariesData/' + name.value).set({
-                    state: "ON"
-                });
-                name.value = '';
-                location.replace("https://boy860521.github.io/ItineraryManagement.html");
-            }
-        }
-
     </script>
 </body>
 

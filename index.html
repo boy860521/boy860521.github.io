@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Admin Entrance</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="entrance.css" rel="stylesheet" type="text/css"
-            media="screen">
-    </head>
+<head>
+    <title>Admin Entrance</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="default.css" rel="stylesheet" type="text/css" media="screen">
+</head>
 
-    <body>
-        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-        <script>
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
@@ -22,43 +21,12 @@
             messagingSenderId: "139238440125"
         };
         firebase.initializeApp(config);
-        </script>
+    </script>
 
-        <button id="login" style="display: inline-block" onclick="login()">Admin
-            Login</button>
-        <button id="clientManagement" onclick="toCM()">Client Management</button>
-        <button id="itineraryManagement" onclick="toIM()">Itinerary Management</button>
-        <button id="signOut" onclick="signOut()">Sign Out</button>
-
-        <script>
-        function signOut() {
-            firebase.auth().signOut().then(function() {
-                // Sign-out successful.
-            }).catch(function(error) {
-                // An error happened.
-            });
-            sessionStorage.removeItem("firebaseUid");
-            location.replace("https://boy860521.github.io/");
-        }
-
-        function toCM() {
-            location.replace("https://boy860521.github.io/ClientManagement.html");
-        }
-
-        function toIM() {
-            location.replace("https://boy860521.github.io/ItineraryManagement.html");
-        }
-
+    <button id="login" onclick="login()">Admin Login</button>
+    <script>
         if (sessionStorage.getItem("firebaseUid")) {
-            document.getElementById("login").style.display = "none";
-            document.getElementById("clientManagement").style.display = "inline-block";
-            document.getElementById("itineraryManagement").style.display = "inline-block";
-            document.getElementById("signOut").setAttribute('style', 'display:inline-block;'+'background-color:#9d9d9d;');
-        } else {
-            document.getElementById("login").style.display = "inline-block";
-            document.getElementById("clientManagement").style.display = "none";
-            document.getElementById("itineraryManagement").style.display = "none";
-            document.getElementById("signOut").style.display = "none";
+            location.replace("https://boy860521.github.io/ItinerariesManagement.html");
         }
 
         function login() {
@@ -70,10 +38,7 @@
                 // The signed-in user info.
                 if (result.user) {
                     sessionStorage.setItem("firebaseUid", result.user.uid);
-                    document.getElementById("login").style.display = "none";
-                    document.getElementById("clientManagement").style.display = "inline-block";
-                    document.getElementById("itineraryManagement").style.display = "inline-block";
-                    document.getElementById("signOut").setAttribute('style', 'display:inline-block;'+'background-color:#9d9d9d;');
+                    location.replace("https://boy860521.github.io/ItinerariesManagement.html");
                 }
             }).catch(function(error) {
                 // Handle Errors here.
@@ -95,7 +60,7 @@
                 });
             }
         }
-        </script>
-    </body>
+    </script>
+</body>
 
 </html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Itineraries Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="default.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <table id="pre">
+    </table>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        console.log(firebaseUid + "has logged in.");
+        if (firebaseUid == null)
+            location.replace("https://boy860521.github.io/");
+        var pre = document.getElementById("pre");
+        firebase.database().ref(firebaseUid).once('value', function (snapshot) {
+            console.log(snapshot.val());
+            console.log(snapshot.numChildren());
+            snapshot.forEach(function (childSnapshot) {
+                var key = childSnapshot.key;
+                var name = childSnapshot.val().name;
+                var tr = document.createElement("tr");
+                var th = document.createElement("th");
+                var btn = document.createElement("button");
+                btn.innerText = name;
+                btn.setAttribute('onclick', 'toItineraryManagement("' + key + '")');
+                btn.setAttribute('class', 'smaller');
+                var deleteButton = document.createElement("button");
+                deleteButton.setAttribute('class', 'deletePlace');
+                deleteButton.innerHTML = "X";
+                deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '", "' + name + '")');
+                th.appendChild(btn);
+                th.appendChild(deleteButton);
+                tr.appendChild(th);
+                pre.appendChild(tr);
+            });
+        });
+    </script>
+
+    <table>
+        <tr>
+            <th>
+                <input type="text" placeholder="Itinerary Name" id="name">
+            </th>
+        </tr>
+    </table>
+    <button id="add" onclick="addItinerary()">Add Itinerary</button>
+    <button id="signOut" onclick="signOut()" class="backTo">Log Out</button>
+
+    <script>
+        function signOut() {
+            firebase.auth().signOut().then(function () {
+                // Sign-out successful.
+            }).catch(function (error) {
+                // An error happened.
+            });
+            sessionStorage.removeItem("firebaseUid");
+            location.replace("https://boy860521.github.io/");
+        }
+
+        function toDeleteData(key, name) {
+            var YesOrNo = confirm("Sure to delete " + name + "?");
+            if (YesOrNo == true) {
+                firebase.database().ref(firebaseUid + '/' + key).once('value', function (snapshot) {
+                    console.log(snapshot.val());
+                    console.log(snapshot.numChildren());
+                    // delete all unused image
+                    snapshot.forEach(function (childSnapshot) {
+                        if (childSnapshot.key != 'name') {
+                            firebase.storage().ref(firebaseUid + '/' + key + '/sceneDataImage/' + childSnapshot.key + '/picutre').delete().then(function () {
+                                console.log(childSnapshot.key + " deleted successfully");
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }
+                    });
+                    firebase.database().ref(firebaseUid + '/' + key).remove()
+                        .then(function () {
+                            location.replace("https://boy860521.github.io/ItinerariesManagement.html");
+                        })
+                        .catch(function (error) {
+                            console.log("Remove failed: " + error.message)
+                        });
+                });
+            }
+        }
+
+        function toItineraryManagement(which) {
+            sessionStorage.setItem("itineraryKey", which);
+            location.replace("https://boy860521.github.io/ItineraryManagement.html");
+        }
+
+        function addItinerary() {
+            var name = document.getElementById("name");
+            var code = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for (var i = 0; i < 6; i++)
+                code += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            if (name.value == '') {
+                window.alert("Name should not be empty");
+            } else {
+                firebase.database().ref(firebaseUid + '/' + code).set({
+                    name: name.value
+                });
+                name.value = '';
+                location.replace("https://boy860521.github.io/ItinerariesManagement.html");
+            }
+        }
+    </script>
+</body>
+
+</html>

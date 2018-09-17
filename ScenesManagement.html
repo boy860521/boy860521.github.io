@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Scenes Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="default.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <table id="pre">
+    </table>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        var itineraryKey = sessionStorage.getItem("itineraryKey");
+        console.log(firebaseUid + "has logged in.");
+        if (firebaseUid == null || itineraryKey == null) {
+            location.replace("https://boy860521.github.io/");
+        }
+        var pre = document.getElementById("pre");
+        firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData').orderByChild('time').once('value', function(snapshot) {
+            //console.log(snapshot.val());console.log(snapshot.numChildren());
+            snapshot.forEach(function(childSnapshot) {
+                var key = childSnapshot.key;
+
+                var th = document.createElement("th");
+                var tr = document.createElement("tr");
+                var btn = document.createElement("button");
+                btn.innerText = key;
+                btn.setAttribute('onclick', 'toSceneDataManagement("' + key + '")');
+                btn.setAttribute('class', 'smaller');
+                var deleteButton = document.createElement("button");
+                deleteButton.setAttribute('class', 'deletePlace');
+                deleteButton.innerHTML = "X";
+                deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
+                th.appendChild(btn);
+                th.appendChild(deleteButton);
+                tr.appendChild(th);
+                pre.appendChild(tr);
+                if (key == "ClientsData" || key == "name") tr.style = "display: none";
+            });
+        });
+    </script>
+
+    <table>
+        <tr>
+            <th>
+                <input type="text" placeholder="Scene Name" id="name">
+            </th>
+        </tr>
+    </table>
+    <button id="add" onclick="addScene()">Add Scene</button>
+    <button onclick="Return()" class="backTo">Return</button>
+
+    <script>
+        function Return() {
+            location.replace("https://boy860521.github.io/ItineraryManagement.html");
+        }
+
+        function toDeleteData(key) {
+            var YesOrNo = confirm("Sure to delete " + key + "?");
+            if (YesOrNo == true) {
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData/' + key).remove();
+                firebase.storage().ref(firebaseUid + '/' + itineraryKey + '/sceneDataImage/' + key + '/picutre').delete().then(function() {
+                    console.log("File deleted successfully");
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            }
+            location.replace("https://boy860521.github.io/ScenesManagement.html");
+        }
+
+        function toSceneDataManagement(which) {
+            sessionStorage.setItem("sceneName", which);
+            location.replace("https://boy860521.github.io/SceneManagement.html");
+        }
+
+        function addScene() {
+            var name = document.getElementById("name");
+
+            if (name.value == '') {
+                window.alert("Name should not be empty");
+            } else {
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData/' + name.value).set({
+                    description: ""
+                });
+                name.value = '';
+                location.replace("https://boy860521.github.io/ScenesManagement.html");
+            }
+        }
+    </script>
+</body>
+
+</html>

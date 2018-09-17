@@ -5,12 +5,10 @@
     <title>Scene Management</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="deafult.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="default.css" rel="stylesheet" type="text/css" media="screen">
 </head>
 
 <body>
-    <table id="pre">
-    </table>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -25,79 +23,64 @@
         firebase.initializeApp(config);
 
         var firebaseUid = sessionStorage.getItem("firebaseUid");
-        var itineraryName = sessionStorage.getItem("itineraryName");
+        var itineraryKey = sessionStorage.getItem("itineraryKey");
+        var sceneName = sessionStorage.getItem("sceneName");
         console.log(firebaseUid + "has logged in.");
-        if (firebaseUid == null || itineraryName == null)
+        if (firebaseUid == null || itineraryKey == null || sceneName == null)
             location.replace("https://boy860521.github.io/");
         var pre = document.getElementById("pre");
-        firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName).orderByChild('time').once('value', function (snapshot) {
-            //console.log(snapshot.val());console.log(snapshot.numChildren());
-            snapshot.forEach(function (childSnapshot) {
-                var key = childSnapshot.key;
-
-                var th = document.createElement("th");
-                var tr = document.createElement("tr");
-                var btn = document.createElement("button");
-                btn.innerText = key;
-                btn.setAttribute('onclick', 'toSceneDataManagement("' + key + '")');
-                btn.setAttribute('class', 'smaller');
-                var deleteButton = document.createElement("button");
-                deleteButton.setAttribute('class', 'deletePlace');
-                deleteButton.innerHTML = "X";
-                deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '")');
-                th.appendChild(btn);
-                th.appendChild(deleteButton);
-                tr.appendChild(th);
-                pre.appendChild(tr);
-                if (key == "state") tr.style = "display: none";
+        firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData/' + sceneName).once('value', function(snapshot) {
+            var Ref = firebase.storage().ref(firebaseUid + '/' + itineraryKey + '/sceneDataImage/' + sceneName + '/picture');
+            Ref.getDownloadURL().then(function(url) {
+                console.log(url);
+                document.getElementById("sceneImage").src = url;
             });
+            console.log(snapshot);
+            document.getElementById("time").value = snapshot.val().time;
+            document.getElementById("description").value = snapshot.val().description;
         });
     </script>
-
-    <table>
-        <tr>
-            <th>
-                <input type="text" placeholder="Scene Name" id="name">
-            </th>
-        </tr>
-    </table>
-    <button id="add" onclick="addScene()">Add Scene</button>
+    <img id="sceneImage" alt="no image has been uploaded.">
+    <input type="file" id="file">
+    <input type="datetime-local" id="time" style="width: 70%">
+    <textarea id="description" placeholder="Something about it"></textarea>
+    <button id="Update" onclick="Update()">Update</button>
     <button onclick="Return()" class="backTo">Return</button>
-
     <script>
         function Return() {
-            location.replace("https://boy860521.github.io/ItineraryManagement.html");
+            location.replace("https://boy860521.github.io/ScenesManagement.html");
         }
-        function toDeleteData(key) {
-            var YesOrNo = confirm("Sure to delete " + key + "?");
-            if (YesOrNo == true) {
-                firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + key).remove();
-                firebase.storage().ref(firebaseUid + '/' + itineraryName + '/sceneDataImage/' + key + '/picutre').delete().then(function () {
-                    console.log("File deleted successfully");
+
+        function Update() {
+            var file = document.getElementById("file").files[0];
+            var time = document.getElementById("time");
+            var description = document.getElementById("description");
+            if (file == null) {
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData/' + sceneName).set({
+                    time: time.value,
+                    description: description.value
+                });
+                return;
+            }
+            var state = document.getElementById("Update");
+            var storageRef = firebase.storage().ref(firebaseUid + '/' + itineraryKey + '/sceneDataImage/' + sceneName + '/picture');
+            var task = storageRef.put(file);
+            task.on('state_changed',
+                function progress(snapshot) {
+                    state.innerHTML = "uploading...";
+                },
+                function error(err) {
+                    state.innerHTML = "something is wrong";
+                },
+                function complete() {
+                    firebase.database().ref(firebaseUid + '/' + itineraryKey + '/ScenesData/' + sceneName).set({
+                        time: time.value,
+                        description: description.value
+                    });
+                    window.alert("File is uploaded.");
                     location.replace("https://boy860521.github.io/SceneManagement.html");
-                }).catch(function (error) {
-                    console.log(error);
-                });
-                
-            }
-        }
-        function toSceneDataManagement(which) {
-            sessionStorage.setItem("sceneName", which);
-            location.replace("https://boy860521.github.io/SceneDataManagement.html");
-        }
-
-        function addScene() {
-            var name = document.getElementById("name");
-
-            if (name.value == '') {
-                window.alert("Name should not be empty");
-            } else {
-                firebase.database().ref(firebaseUid + '/ItinerariesData/' + itineraryName + '/' + name.value).set({
-                    description: ""
-                });
-                name.value = '';
-                location.replace("https://boy860521.github.io/SceneManagement.html");
-            }
+                }
+            );
         }
     </script>
 </body>

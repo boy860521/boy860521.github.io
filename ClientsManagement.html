@@ -35,6 +35,7 @@
             console.log(snapshot.numChildren());
             snapshot.forEach(function(childSnapshot) {
                 var key = childSnapshot.key;
+                if(key == updating_state) continue;
                 var name = childSnapshot.val().name;
                 var tr = document.createElement("tr");
                 var th = document.createElement("th");

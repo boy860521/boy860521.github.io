@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tour Guides Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="default.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        var itineraryKey = sessionStorage.getItem("itineraryKey");
+        console.log(firebaseUid + "has logged in.");
+        console.log(itineraryKey);
+        if (firebaseUid == null || itineraryKey == null)
+            location.replace("https://boy860521.github.io/");
+
+        var table = document.createElement("table");
+        firebase.database().ref(firebaseUid + '/' + itineraryKey + '/TourGuidesData').once('value', function(snapshot) {
+            console.log(snapshot.val());
+            console.log(snapshot.numChildren());
+            snapshot.forEach(function(childSnapshot) {
+                var key = childSnapshot.key;
+                var name = childSnapshot.val().name;
+                var tr = document.createElement("tr");
+                var th = document.createElement("th");
+                var btn = document.createElement("button");
+                btn.innerText = name;
+                btn.setAttribute('onclick', 'toCleintManagement("' + key + '")');
+                btn.setAttribute('class', 'smaller');
+                var deleteButton = document.createElement("button");
+                deleteButton.setAttribute('class', 'deletePlace');
+                deleteButton.innerHTML = "X";
+                deleteButton.setAttribute('onclick', 'toDeleteData("' + key + '", "' + name + '")');
+                th.appendChild(btn);
+                th.appendChild(deleteButton);
+                tr.appendChild(th);
+                table.appendChild(tr);
+            });
+        });
+        document.body.appendChild(table);
+    </script>
+    <input type="text" id="name" style="width: 69%;">
+    <button id="add" onclick="addTourGuide()">Add Tour Guide</button>
+    <button onclick="Return()" class="backTo">Return</button>
+
+    <script>
+        function toCleintManagement(key) {
+            sessionStorage.setItem("tourGuideKey", key);
+            location.replace("https://boy860521.github.io/TourGuideManagement.html");
+        }
+
+        function toDeleteData(key, name) {
+            var YesOrNo = confirm("Sure to delete " + name + "?");
+            if (YesOrNo == true) {
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/TourGuidesData/' + key).remove();
+                location.replace("https://boy860521.github.io/TourGuidesManagement.html");
+            }
+        }
+
+        function Return() {
+            location.replace("https://boy860521.github.io/ItineraryManagement.html");
+        }
+
+        function addTourGuide() {
+            var name = document.getElementById("name");
+
+            if (name.value == '') {
+                window.alert("Name should not be empty");
+            } else {
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/TourGuidesData').push().set({
+                    name: name.value
+                });
+                name.value = '';
+                location.replace("https://boy860521.github.io/TourGuidesManagement.html");
+            }
+        }
+    </script>
+</body>
+
+</html>

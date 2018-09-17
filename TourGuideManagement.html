@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tour Guide Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="default.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <table id="pre">
+        <tr>
+            <td>name:</td>
+            <td>
+                <input type="text" id="name"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>ID:</td>
+            <td>
+                <input type="text" id="ID"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>age:</td>
+            <td>
+                <input type="text" id="age"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>blood type:</td>
+            <td>
+                <input type="text" id="bloodType"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>medical history:</td>
+            <td>
+                <input type="text" id="medicalHistory"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>phone number:</td>
+            <td>
+                <input type="text" id="phoneNumber"></input>
+            </td>
+        </tr>
+    </table>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAC89iT0646zdcQdSE-Cv6gFYVvNjVO3pU",
+            authDomain: "smallmonster-fdf5b.firebaseapp.com",
+            databaseURL: "https://smallmonster-fdf5b.firebaseio.com",
+            projectId: "smallmonster-fdf5b",
+            storageBucket: "smallmonster-fdf5b.appspot.com",
+            messagingSenderId: "139238440125"
+        };
+        firebase.initializeApp(config);
+
+        var firebaseUid = sessionStorage.getItem("firebaseUid");
+        var itineraryKey = sessionStorage.getItem("itineraryKey");
+        var tourGuideKey = sessionStorage.getItem("tourGuideKey");
+        console.log(firebaseUid + "has logged in.");
+        if (firebaseUid == null || itineraryKey == null || tourGuideKey == null)
+            location.replace("https://boy860521.github.io/");
+
+        firebase.database().ref(firebaseUid + '/' + itineraryKey + '/TourGuidesData/' + tourGuideKey).once('value', function(snapshot) {
+            console.log(snapshot.val());
+            console.log(snapshot.numChildren());
+            var name = document.getElementById("name");
+            name.value = snapshot.val().name;
+            name.setAttribute('onchange', 'toChangeData("name", "' + name.value + '")');
+            var ID = document.getElementById("ID");
+            ID.value = snapshot.val().ID;
+            ID.setAttribute('onchange', 'toChangeData("ID", "' + ID.value + '")');
+            var age = document.getElementById("age");
+            age.value = snapshot.val().age;
+            age.setAttribute('onchange', 'toChangeData("age", "' + age.value + '")');
+            var bloodType = document.getElementById("bloodType");
+            bloodType.value = snapshot.val().bloodType;
+            bloodType.setAttribute('onchange', 'toChangeData("bloodType", "' + bloodType.value + '")');
+            var medicalHistory = document.getElementById("medicalHistory");
+            medicalHistory.value = snapshot.val().medicalHistory;
+            medicalHistory.setAttribute('onchange', 'toChangeData("medicalHistory", "' + medicalHistory.value + '")');
+            var phoneNumber = document.getElementById("phoneNumber");
+            phoneNumber.value = snapshot.val().phoneNumber;
+            phoneNumber.setAttribute('onchange', 'toChangeData("phoneNumber", "' + phoneNumber.value + '")');
+        });
+    </script>
+    <button onclick="Return()" class="backTo">Return</button>
+
+    <script>
+        function toChangeData(key, orignalvalue) {
+            console.log(key);
+            var postValue = document.getElementById(key).value;
+            //var YesOrNo = confirm("Sure to change " + orignalvalue + " to " + postValue + "?");
+            if (key == "ID") {
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/TourGuidesData/' + tourGuideKey).remove();
+                firebase.database().ref(firebaseUid + '/' + itineraryKey + '/TourGuidesData/' + postValue).set({
+                    name: document.getElementById("name").value,
+                    ID: document.getElementById("ID").value,
+                    age: document.getElementById("age").value,
+                    bloodType: document.getElementById("bloodType").value,
+                    medicalHistory: document.getElementById("medicalHistory").value,
+                    phoneNumber: document.getElementById("phoneNumber").value
+                });
+                sessionStorage.setItem("tourGuideKey", postValue);
+                tourGuideKey = postValue;
+            }
+            firebase.database().ref(firebaseUid + '/' + itineraryKey + '/TourGuidesData/' + tourGuideKey).child(key).set(postValue);
+
+        }
+
+        function Return() {
+            location.replace("https://boy860521.github.io/TourGuidesManagement.html");
+        }
+    </script>
+</body>
+
+</html>

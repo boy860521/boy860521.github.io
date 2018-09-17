@@ -40,7 +40,7 @@
                 var th = document.createElement("th");
                 var btn = document.createElement("button");
                 btn.innerText = name;
-                btn.setAttribute('onclick', 'toCleintManagement("' + key + '")');
+                btn.setAttribute('onclick', 'toClientManagement("' + key + '")');
                 btn.setAttribute('class', 'smaller');
                 var deleteButton = document.createElement("button");
                 deleteButton.setAttribute('class', 'deletePlace');
@@ -59,7 +59,7 @@
     <button onclick="Return()" class="backTo">Return</button>
 
     <script>
-        function toCleintManagement(key) {
+        function toClientManagement(key) {
             sessionStorage.setItem("tourGuideKey", key);
             location.replace("https://boy860521.github.io/TourGuideManagement.html");
         }
